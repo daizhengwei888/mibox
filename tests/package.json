@@ -1,0 +1,15 @@
+{
+  "name": "mibox-tests",
+  "private": true,
+  "type": "module",
+  "description": "谜盒的测试：单元测试不需要安装依赖；端到端测试需要 Playwright。",
+  "scripts": {
+    "unit": "node --test unit/*.test.mjs",
+    "e2e:smoke": "node e2e/smoke.mjs",
+    "e2e:checkin": "node e2e/checkin.mjs",
+    "test": "npm run unit && npm run e2e:smoke"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}

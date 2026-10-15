@@ -1,0 +1,26 @@
+/* 侧栏 */
+html, body { height: 100%; }
+body { background: var(--bg-soft); }
+.sp { display: flex; flex-direction: column; height: 100vh; }
+.sp-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line-soft); background: var(--surface); }
+.sp-head .brand { display: grid; }
+.page-card { margin: 12px 12px 0; padding: 12px 14px; background: var(--card-bg); border: 1px solid var(--card-edge); border-radius: var(--radius-card); box-shadow: var(--card-shadow); display: flex; flex-direction: column; gap: 8px; }
+.saved-tag { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-sub); color: var(--accent); font-weight: 600; white-space: nowrap; }
+.sel-block { display: flex; flex-direction: column; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line-soft); }
+.sel-block blockquote { margin: 0; padding: 8px 10px; background: var(--surface-2); border-radius: var(--radius-ctrl); font-size: var(--fs-sub); line-height: 1.6; color: var(--text-2); max-height: 160px; overflow: auto; white-space: pre-wrap; }
+.tab-body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-3); padding: 12px 12px 0; }
+.tab-body .search-box { height: var(--h-md); }
+.list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; padding-bottom: 12px; }
+.item { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: var(--radius-ctrl); color: var(--text); text-decoration: none; }
+.item:hover { background: var(--hover); color: var(--text); }
+.fav { color: var(--star); display: grid; }
+.fav svg { fill: var(--star); }
+.composer { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; background: var(--field-bg); border: 1px solid var(--field-edge); border-radius: var(--radius-card); box-shadow: var(--field-shadow); }
+.composer:focus-within { border-color: var(--field-focus-edge); box-shadow: var(--field-shadow), var(--field-focus); }
+.composer textarea { border: 0; outline: none; resize: none; font-size: var(--fs-sub); line-height: 1.6; background: transparent; color: var(--text); }
+.list.notes { gap: var(--sp-2); margin: 0 -12px; padding: 4px 12px 14px; }
+.note { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: var(--radius-card); background: var(--card-bg); border: 1px solid var(--card-edge); box-shadow: var(--card-shadow); text-align: left; cursor: pointer; color: var(--text); width: 100%; }
+.note:hover { box-shadow: var(--card-shadow-hover); }
+.note .nt { font-weight: 500; font-size: var(--fs-sub); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.note .nb { font-size: var(--fs-sub); line-height: 1.6; color: var(--text-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sp-foot { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line-soft); background: var(--surface); }

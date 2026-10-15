@@ -1,0 +1,13 @@
+# 依赖与产物
+node_modules/
+dist/
+*.zip
+*.crx
+
+# 私钥：只在自己打包 .crx 时用，千万不要提交
+*.pem
+
+# 测试与系统文件
+tests/output/
+.DS_Store
+Thumbs.db

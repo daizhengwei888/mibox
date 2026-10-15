@@ -1,0 +1,8 @@
+/* 搜索页本身：在网页上是半透明遮罩 + 面板；在小窗口里铺满。 */
+html.qs-page, html.qs-page body { background: transparent; height: 100%; overflow: hidden; }
+.qs-scrim { position: fixed; inset: 0; display: flex; justify-content: center; align-items: flex-start; padding: 64px 16px 16px; background: var(--scrim); }
+.qs-holder { width: min(680px, 100%); }
+html.qs-window body { background: var(--bg); }
+html.qs-window .qs-scrim { background: transparent; padding: 0; }
+html.qs-window .qs-holder { width: 100%; height: 100%; }
+html.qs-window .qs-panel { max-height: 100vh; height: 100vh; border-radius: 0; border: 0; box-shadow: none; }

@@ -1,0 +1,898 @@
+/* 谜盒设计基础：颜色、字体、按钮、输入框、开关、提示条、对话框。浅色和深色两套。 */
+
+:root {
+  color-scheme: light;
+  --bg: #eef1ef;
+  --bg-soft: #f7f9f8;
+  --surface: #ffffff;
+  --surface-2: #f4f7f5;
+  --text: #17201d;
+  --text-2: #3e4944;
+  --muted: #55605b;
+  --faint: #6f7a75;
+  --line: #d9dfdc;
+  --line-soft: #e6ebe8;
+  --line-strong: #c9d2ce;
+  --accent: #0b6b57;
+  --accent-hover: #08523f;
+  --accent-soft: #e6f3ee;
+  --accent-line: #bfdccf;
+  --on-accent: #ffffff;
+  --hover: #e2e9e6;
+  --hover-soft: #eef3f1;
+  --star: #c27a12;
+  --ok: #1f9d6b;
+  --warn: #a15c00;
+  --warn-soft: #fbf1de;
+  --danger: #a3261b;
+  --danger-soft: #fbe9e7;
+  --on-danger: #ffffff;
+  --mark: #f7de9a;
+  --scrim: rgba(23, 32, 29, 0.38);
+  --shadow: 0 24px 64px rgba(23, 32, 29, 0.24);
+  --shadow-sm: 0 2px 10px rgba(23, 32, 29, 0.08);
+  --radius: 10px;
+  --radius-lg: 14px;
+  /* 字阶：24 页标题 / 18 区块标题 / 15 卡片标题 / 14 正文 / 13 次要 / 12 元数据。组件只读这六档，不写数字。 */
+  --fs-page: 24px; --fs-section: 18px; --fs-title: 15px; --fs-body: 14px; --fs-sub: 13px; --fs-meta: 12px;
+  /* 间距：4pt 栅格。 */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-7: 32px;
+  /* 控件高度三档：小按钮与芯片 / 按钮与输入框 / 大按钮。 */
+  --h-sm: 28px; --h-md: 36px; --h-lg: 44px;
+  --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --t0-bg: #e3e7ec; --t0-fg: #334155;
+  --t1-bg: #f8e3d3; --t1-fg: #8a3a0a;
+  --t2-bg: #dce6f8; --t2-fg: #1d3f7f;
+  --t3-bg: #f7eac8; --t3-fg: #6e4a00;
+  --t4-bg: #e2eed3; --t4-fg: #3b5e0b;
+  --t5-bg: #e7e0f6; --t5-fg: #4a2f86;
+  --t6-bg: #f6dde6; --t6-fg: #8a1f4a;
+  --t7-bg: #d8eeea; --t7-fg: #0b5544;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0f1412; --bg-soft: #131a17; --surface: #18201c; --surface-2: #1e2723;
+    --text: #e5ece8; --text-2: #c3cdc8; --muted: #9ba7a1; --faint: #86928c;
+    --line: #2c3733; --line-soft: #242e2a; --line-strong: #3b4843;
+    --accent: #43b892; --accent-hover: #62c9a6; --accent-soft: #15332a; --accent-line: #24533f; --on-accent: #06120e;
+    --hover: #26322d; --hover-soft: #1d2723;
+    --star: #e6a645;
+    --ok: #43b892; --warn: #e6a645; --warn-soft: #3a2e17; --danger: #f08576; --danger-soft: #3d1f1b; --on-danger: #40120c; --mark: #6b5a1f;
+    --scrim: rgba(0, 0, 0, 0.55);
+    --shadow: 0 24px 64px rgba(0, 0, 0, 0.55); --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+    --t0-bg: #27303a; --t0-fg: #c8d3e0; --t1-bg: #3a2a1e; --t1-fg: #f2c3a0; --t2-bg: #1f2b40; --t2-fg: #b4c8f0;
+    --t3-bg: #3a3119; --t3-fg: #edd28f; --t4-bg: #263321; --t4-fg: #c4dda5; --t5-bg: #2d2640; --t5-fg: #cdbdf2;
+    --t6-bg: #3a2330; --t6-fg: #f0b8cc; --t7-bg: #183330; --t7-fg: #a6e0d3;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1412; --bg-soft: #131a17; --surface: #18201c; --surface-2: #1e2723;
+  --text: #e5ece8; --text-2: #c3cdc8; --muted: #9ba7a1; --faint: #86928c;
+  --line: #2c3733; --line-soft: #242e2a; --line-strong: #3b4843;
+  --accent: #43b892; --accent-hover: #62c9a6; --accent-soft: #15332a; --accent-line: #24533f; --on-accent: #06120e;
+  --hover: #26322d; --hover-soft: #1d2723;
+  --star: #e6a645;
+  --ok: #43b892; --warn: #e6a645; --warn-soft: #3a2e17; --danger: #f08576; --danger-soft: #3d1f1b; --on-danger: #40120c; --mark: #6b5a1f;
+  --scrim: rgba(0, 0, 0, 0.55);
+  --shadow: 0 24px 64px rgba(0, 0, 0, 0.55); --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --t0-bg: #27303a; --t0-fg: #c8d3e0; --t1-bg: #3a2a1e; --t1-fg: #f2c3a0; --t2-bg: #1f2b40; --t2-fg: #b4c8f0;
+  --t3-bg: #3a3119; --t3-fg: #edd28f; --t4-bg: #263321; --t4-fg: #c4dda5; --t5-bg: #2d2640; --t5-fg: #cdbdf2;
+  --t6-bg: #3a2330; --t6-fg: #f0b8cc; --t7-bg: #183330; --t7-fg: #a6e0d3;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+input[type="range"], input[type="checkbox"], input[type="radio"] { accent-color:var(--accent); }
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3, h4, p { margin: 0; }
+.sr { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.muted { color: var(--muted); }
+.faint { color: var(--faint); }
+.small { font-size: 12px; }
+.mono { font-family: var(--mono); }
+.grow { flex: 1; min-width: 0; }
+.row { display: flex; align-items: center; gap: 8px; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.wrap { flex-wrap: wrap; }
+.ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.i { flex: none; display: block; }
+/* 16px 以上的线条图标收细一档，和细体中文的笔画重量对齐；品牌标识等填充图形不受影响。 */
+svg.i[stroke-width="2"] { stroke-width: var(--icon-stroke); }
+/* 谜盒标识：浅色是象牙底，深色是墨底；同一位置的晶面在两种配色下各取对应颜色。 */
+.brand-mark { flex: none; display: block; forced-color-adjust: none; }
+.brand-mark .mb-bg { fill: light-dark(#f0eee6, #191919); }
+.brand-mark .mb-stone { fill: light-dark(#e0dbd1, #36322f); }
+.brand-mark .mb-cave { fill: light-dark(#191919, #0c0c0c); }
+.brand-mark .mb-p1 { fill: light-dark(#7e96b8, #cc785c); }
+.brand-mark .mb-p2 { fill: light-dark(#6f9892, #d4a27f); }
+.brand-mark .mb-p3 { fill: light-dark(#8a9a7b, #c9a656); }
+.brand-mark .mb-p4 { fill: light-dark(#c9a656, #8a9a7b); }
+.brand-mark .mb-p5 { fill: light-dark(#d4a27f, #6f9892); }
+.brand-mark .mb-p6 { fill: light-dark(#cc785c, #7e96b8); }
+[hidden] { display: none !important; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 12px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: var(--faint); }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* 按钮 */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: var(--h-md); padding: 0 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-ctrl);
+  background: var(--surface); color: var(--text); cursor: pointer; font-size: var(--fs-body); font-weight: 500;
+  white-space: nowrap; text-decoration: none; user-select: none;
+}
+/* 可按的控件共用一条完整的过渡：悬停换色走 ease，按压缩放走 --ease-out。按压状态只改 transform 的值，不改这条列表。 */
+.btn, .icon-btn, .chip, .link-btn {
+  transition:
+    background-color var(--dur-hover) ease,
+    border-color var(--dur-hover) ease,
+    color var(--dur-hover) ease,
+    box-shadow var(--dur-hover) ease,
+    transform var(--dur-press) var(--ease-out);
+}
+.btn:hover { background: var(--hover-soft); color: var(--text); }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.btn.pri:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--on-accent); }
+.btn.outline { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.btn.outline:hover { background: var(--accent-soft); }
+.btn.ghost { border-color: transparent; background: transparent; }
+.btn.ghost:hover { background: var(--hover); }
+.btn.danger { color: var(--danger); border-color: var(--line-strong); }
+.btn.danger:hover { background: var(--danger-soft); }
+.btn.danger-fill { background: var(--danger); border-color: var(--danger); color: var(--on-danger); font-weight: 600; }
+.btn.sm { height: var(--h-sm); padding: 0 10px; font-size: var(--fs-sub); border-radius: var(--radius-ctrl); }
+.btn.lg { height: var(--h-lg); padding: 0 22px; font-size: var(--fs-title); border-radius: var(--radius-ctrl); }
+.btn.block { width: 100%; }
+.icon-btn {
+  display: inline-grid; place-items: center; width: var(--h-md); height: var(--h-md); padding: 0; flex: none;
+  border: 0; border-radius: var(--radius-ctrl); background: transparent; color: var(--text-2); cursor: pointer;
+}
+.icon-btn:hover { background: var(--hover); color: var(--text); }
+.icon-btn.sm { width: var(--h-sm); height: var(--h-sm); border-radius: 6px; }
+.icon-btn[aria-pressed="true"] { color: var(--star); }
+.link-btn { border: 0; background: none; padding: 2px 4px; color: var(--accent); cursor: pointer; font-weight: 600; font-size: var(--fs-sub); border-radius: 6px; }
+.link-btn:hover { background: var(--accent-soft); }
+
+/* 输入 */
+.input, .select, .textarea {
+  width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius-ctrl); background: var(--surface);
+  color: var(--text); outline: none; font-size: var(--fs-body);
+}
+.input, .select { height: var(--h-md); padding: 0 11px; }
+.textarea { padding: 9px 11px; line-height: 1.6; resize: vertical; min-height: 72px; }
+.input:focus, .select:focus, .textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input.invalid { border-color: var(--danger); }
+.input::placeholder, .textarea::placeholder { color: var(--faint); }
+.select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 16px) 15px, calc(100% - 11px) 15px; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 30px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field > label, .label { font-size: var(--fs-sub); font-weight: 600; color: var(--text); }
+.hint { font-size: var(--fs-meta); color: var(--muted); line-height: 1.6; }
+.error-text { font-size: var(--fs-meta); color: var(--danger); }
+.search-box {
+  display: flex; align-items: center; gap: 8px; height: var(--h-md); padding: 0 11px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-ctrl); background: var(--surface); color: var(--muted);
+}
+.search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.search-box input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; color: var(--text); font-size: var(--fs-body); }
+.search-box input::placeholder { color: var(--faint); }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; flex: none; }
+.check { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
+/* 开关 */
+.switch {
+  position: relative; width: 44px; height: 26px; flex: none; border: 0; border-radius: 999px;
+  background: var(--line-strong); cursor: pointer; padding: 0; transition: background-color var(--dur-hover) ease, box-shadow var(--dur-hover) ease;
+}
+.switch::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform var(--dur-pop) var(--ease-pop), background-color var(--dur-hover) ease;
+}
+.switch[aria-checked="true"] { background: var(--accent); }
+.switch[aria-checked="true"]::after { transform: translateX(18px); }
+.switch:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* 小标签 */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; height: var(--h-sm); padding: 0 12px;
+  border: 1px solid var(--line-strong); border-radius: 999px; background: var(--surface);
+  cursor: pointer; font-size: var(--fs-sub); color: var(--text); white-space: nowrap;
+}
+.chip:hover { background: var(--hover-soft); }
+.chip[aria-checked="true"], .chip[aria-pressed="true"], .chip.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.chip.dashed { border-style: dashed; color: var(--muted); background: transparent; }
+.badge { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 999px; font-size: var(--fs-meta); font-weight: 600; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); white-space: nowrap; }
+.badge.ok { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.badge.warn { color: var(--warn); border-color: transparent; background: var(--warn-soft); }
+.badge.danger { color: var(--danger); border-color: transparent; background: var(--danger-soft); }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--faint); display: inline-block; }
+.dot.ok { background: var(--ok); }
+.dot.warn { background: var(--warn); }
+.dot.danger { background: var(--danger); }
+kbd, .kbd {
+  font-family: var(--font); font-size: var(--fs-meta); font-weight: 600; min-width: 20px; height: 20px; padding: 0 5px;
+  display: inline-grid; place-items: center; border: 1px solid var(--line-strong); border-bottom-width: 2px;
+  border-radius: 4px; background: var(--surface); color: var(--text-2); line-height: 1;
+}
+
+/* 字母图标 */
+.tile {
+  --s: 30px; position: relative; width: var(--s); height: var(--s); flex: none; border-radius: calc(var(--s) * 0.25);
+  display: grid; place-items: center; font-weight: 700; font-size: calc(var(--s) * 0.44); overflow: hidden;
+  background: var(--t0-bg); color: var(--t0-fg); user-select: none;
+}
+.tile.t1 { background: var(--t1-bg); color: var(--t1-fg); }
+.tile.t2 { background: var(--t2-bg); color: var(--t2-fg); }
+.tile.t3 { background: var(--t3-bg); color: var(--t3-fg); }
+.tile.t4 { background: var(--t4-bg); color: var(--t4-fg); }
+.tile.t5 { background: var(--t5-bg); color: var(--t5-fg); }
+.tile.t6 { background: var(--t6-bg); color: var(--t6-fg); }
+.tile.t7 { background: var(--t7-bg); color: var(--t7-fg); }
+.tile img { position: absolute; inset: 0; margin: auto; width: 66%; height: 66%; object-fit: contain; border-radius: max(2px, calc(var(--s) * .1)); opacity: 0; }
+.tile img.ok { opacity: 1; }
+.tile.has-fav { background: light-dark(var(--surface-2), #292b34); color: transparent; border: 1px solid light-dark(var(--line-soft), rgba(255,255,255,.07)); border-radius: max(4px, calc(var(--s) * .28)); box-shadow: inset 0 1px 0 light-dark(rgba(255,255,255,.55), rgba(255,255,255,.04)), 0 2px 4px light-dark(rgba(0,0,0,.07), rgba(0,0,0,.2)); }
+.tile.has-fav.fav-tone-black { background: light-dark(var(--surface-2), hsl(222 8% 70%)); border-color: light-dark(var(--line-soft), rgba(255,255,255,.13)); box-shadow: inset 0 1px 0 light-dark(rgba(255,255,255,.55), rgba(255,255,255,.18)), 0 2px 4px light-dark(rgba(0,0,0,.07), rgba(0,0,0,.2)); }
+.tile.has-fav.fav-tone-white { background: light-dark(#5e6570, #2a2d35); }
+
+/* 卡片、分区 */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 16px; }
+.notice { display: flex; gap: 8px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-card); background: var(--surface-2); border: 1px solid var(--line); font-size: var(--fs-sub); line-height: 1.6; color: var(--text-2); }
+.notice.ok { background: var(--accent-soft); border-color: var(--accent-line); }
+.notice.warn { background: var(--warn-soft); border-color: transparent; color: var(--text); }
+.notice.danger { background: var(--danger-soft); border-color: transparent; color: var(--text); }
+.notice .i { margin-top: 2px; }
+mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 1px; }
+mark:empty { display: none; }
+hr.sep { border: 0; border-top: 1px solid var(--line-soft); margin: 0; }
+
+/* 提示条 */
+.toasts { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; width: max-content; max-width: calc(100vw - 32px); }
+.toast {
+  pointer-events: auto; display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 16px;
+  background: #17201d; color: #fff; border-radius: var(--radius-card); box-shadow: var(--shadow); font-size: var(--fs-body); max-width: 100%;
+  /* 用过渡而不是关键帧：连续弹出时能从当前位置接着走。进场从自身高度以下升起，退场更快。 */
+  transition: opacity var(--dur-toast) var(--ease-out), transform var(--dur-toast) var(--ease-out);
+}
+@starting-style { .toast { opacity: 0; transform: translateY(100%); } }
+.toast[data-leaving] { opacity: 0; transform: translateY(6px) scale(.98); transition-duration: var(--dur-exit); pointer-events: none; }
+:root[data-theme="dark"] .toast { background: #e5ece8; color: #17201d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .toast { background: #e5ece8; color: #17201d; } }
+.toast.error { background: #6b1a12; color: #fff; }
+.toast button { height: var(--h-sm); padding: 0 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.35); background: transparent; color: inherit; cursor: pointer; font-weight: 600; font-size: 13px; }
+.toast .close { border: 0; width: var(--h-sm); padding: 0; display: grid; place-items: center; opacity: 0.8; }
+.toast span { line-height: 1.5; }
+
+/* 对话框：居中出现，原点在中心；关闭时比打开快。 */
+.modal-scrim { position: fixed; inset: 0; z-index: 900; background: var(--scrim); display: grid; place-items: center; padding: 16px; transition: opacity var(--dur-modal) ease; }
+.modal {
+  width: min(520px, 100%); max-height: calc(100vh - 32px); overflow: auto; background: var(--surface); color: var(--text);
+  border-radius: var(--radius-pop); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 16px;
+  transition: opacity var(--dur-modal) var(--ease-out), transform var(--dur-modal) var(--ease-out);
+}
+@starting-style {
+  .modal-scrim { opacity: 0; }
+  .modal { opacity: 0; transform: scale(.96); }
+}
+.modal-scrim[data-leaving] { opacity: 0; transition-duration: var(--dur-exit); pointer-events: none; }
+.modal-scrim[data-leaving] .modal { opacity: 0; transform: scale(.98); transition-duration: var(--dur-exit); }
+.modal.wide { width: min(720px, 100%); }
+.modal-head { display: flex; align-items: center; gap: 12px; }
+.modal-head h2 { font-size: var(--fs-section); font-weight: 600; flex: 1; }
+.modal-foot { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* 下拉菜单 */
+.menu {
+  position: fixed; z-index: 950; min-width: 180px; max-width: 280px; padding: 6px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius-card); box-shadow: var(--shadow); display: flex; flex-direction: column;
+  /* 从触发按钮展开：原点由 openMenu() 按按钮位置写入；键盘打开时加 data-instant，不播。 */
+  transition: opacity var(--dur-pop) var(--ease-out), transform var(--dur-pop) var(--ease-out);
+}
+@starting-style { .menu { opacity: 0; transform: scale(.96); } }
+.menu[data-instant] { transition: none; }
+.menu button, .menu a {
+  display: flex; align-items: center; gap: 8px; width: 100%; min-height: var(--h-md); padding: 6px 10px; border: 0; border-radius: var(--radius-ctrl);
+  background: transparent; color: var(--text); text-align: left; cursor: pointer; font-size: var(--fs-body); text-decoration: none;
+}
+.menu button:hover, .menu a:hover, .menu button:focus-visible { background: var(--hover); outline: none; }
+.menu .danger { color: var(--danger); }
+.menu hr { border: 0; border-top: 1px solid var(--line-soft); margin: 5px 4px; }
+.menu .menu-label { padding: 6px 10px 2px; font-size: var(--fs-meta); color: var(--muted); }
+
+.spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spin 0.7s linear infinite; display: inline-block; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* 系统「减少动态效果」与「轻动效」关闭统一由 data-motion="reduced" 处理，规则在本文件末尾。 */
+
+
+/* ───────────── 材质皮肤 ─────────────
+   皮肤只声明变量：颜色、表面、阴影、厚度、控件形态和字体节奏。颜色用 light-dark()，随 color-scheme 切换明暗。
+   组件规则在本文件末尾和 app.css 末尾统一读取这些变量；默认值就是 Emboss 的样子。 */
+:root {
+  --sidebar-width: 248px; --radius-card: 12px; --radius-ctrl: 8px; --radius-pop: 16px;
+  --font-display: var(--font); --heading-weight: 600; --heading-tracking: 0; --label-tracking: 0;
+  /* 动效令牌（取自 emil-design-eng）：三条曲线、六档时长。外观不改曲线和时长，只能改 --ease-pop。 */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* 进出场、按压、菜单、浮层 */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* 在屏幕上移动：反光扫过 */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);   /* 抽屉、底部批量条 */
+  --ease-pop: var(--ease-out);                     /* 星标、开关这类低频反馈的「性格」档 */
+  --dur-press: 120ms; --dur-hover: 150ms; --dur-pop: 160ms; --dur-modal: 200ms; --dur-toast: 300ms; --dur-exit: 140ms;
+  /* 旧名指向新值，供尚未改写的规则使用 */
+  --motion-fast: var(--dur-press); --motion-base: var(--dur-hover); --motion-slow: var(--dur-modal);
+  --motion-duration: var(--dur-hover); --ease: var(--ease-out); --shadow-press: inset 0 2px 5px rgba(0, 0, 0, .15);
+  --icon-stroke: 1.75;
+  --page-bg: var(--bg); --shell-gap: 0px;
+  --nav-bg: var(--bg-soft); --nav-edge: var(--line); --nav-shadow: 0 0 0 0 transparent; --nav-radius: 0px; --nav-blur: none;
+  --nav-text: var(--text-2); --nav-muted: var(--muted); --nav-hover: var(--hover);
+  --nav-on-bg: var(--selected-bg, var(--accent-soft)); --nav-on-text: var(--selected-text, var(--text)); --nav-on-shadow: 0 0 0 0 transparent; --nav-on-icon: var(--accent);
+  --main-bg: transparent; --main-shadow: 0 0 0 0 transparent; --main-radius: 0px;
+  --card-bg: var(--surface); --card-edge: var(--line); --card-shadow: var(--shadow-card); --card-shadow-hover: var(--shadow-sm);
+  --pop-bg: var(--surface-elevated, var(--surface)); --pop-blur: none; --pop-shadow: var(--shadow);
+  --btn-bg: var(--surface); --btn-bg-hover: var(--hover-soft); --btn-edge: var(--control-border, var(--line-strong)); --btn-text: var(--text);
+  --btn-shadow: 0 0 0 0 transparent; --btn-shadow-active: none; --btn-radius: var(--radius-ctrl);
+  --pri-bg: var(--accent); --pri-bg-hover: var(--accent-hover); --pri-edge: var(--accent); --pri-text: var(--on-accent); --pri-shadow: 0 0 0 0 transparent; --pri-shadow-active: var(--shadow-press);
+  --field-bg: var(--surface); --field-edge: var(--control-border, var(--line-strong)); --field-shadow: 0 0 0 0 transparent; --field-radius: var(--radius-ctrl);
+  --field-focus: 0 0 0 3px var(--accent-soft); --field-focus-edge: var(--accent);
+  --track-bg: var(--line-strong); --track-shadow: 0 0 0 0 transparent; --track-on-bg: var(--accent); --track-on-shadow: 0 0 0 0 transparent;
+  --knob-bg: #fff; --knob-on-bg: #fff; --knob-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+  --check-radius: 5px; --check-bg: var(--surface); --check-edge: var(--control-border, var(--line-strong)); --check-shadow: 0 0 0 0 transparent;
+  --check-on-bg: var(--accent); --check-on-edge: var(--accent); --check-on-shadow: 0 0 0 0 transparent; --check-mark: var(--on-accent);
+  --seg-bg: var(--hover); --seg-shadow: 0 0 0 0 transparent; --seg-radius: 10px; --seg-on-bg: var(--surface); --seg-on-text: var(--text); --seg-on-shadow: var(--shadow-sm);
+  --chip-on-bg: var(--accent); --chip-on-text: var(--on-accent); --chip-on-shadow: 0 0 0 0 transparent;
+  --tile-radius: 25%; --tile-shadow: 0 0 0 0 transparent; --ring: 0 0 0 0 transparent;
+}
+
+/* Emboss 浮雕（默认）：暖纸底、深绿骨架。 */
+:root:not([data-skin]), :root[data-skin="emboss"] {
+  --bg: light-dark(#f5f4f0, #141815); --bg-soft: light-dark(#ecede7, #1a211b); --surface: light-dark(#fffefa, #202721); --surface-2: light-dark(#f1f1e9, #263029);
+  --surface-elevated: light-dark(#fffefa, #263029); --text: light-dark(#242c26, #eef2eb); --text-2: light-dark(#3a443d, #c9d2c9); --muted: light-dark(#6b746a, #9aa59c); --faint: light-dark(#8e978d, #7d8880);
+  --line: light-dark(#dddfd5, #364237); --line-soft: light-dark(#e8e9e2, #2a332c); --line-strong: light-dark(#7b8478, #859680); --control-border: light-dark(#7b8478, #859680);
+  --accent: light-dark(#355e4b, #a9ceb5); --accent-hover: light-dark(#284a3a, #c0dfca); --on-accent: light-dark(#ffffff, #17271e); --accent-soft: light-dark(#dfeadf, #2c4033); --accent-line: light-dark(#7b8478, #859680);
+  --hover: light-dark(#dfeadf, #2c4033); --hover-soft: light-dark(#f1f1e9, #263029); --selected-bg: light-dark(#dfeadf, #2c4033); --selected-text: light-dark(#254d3b, #d0e8d5);
+  --focus: light-dark(#355e4b, #a9ceb5); --ok: light-dark(#256446, #87c3a3);
+  --shadow-card: 0 2px 4px light-dark(rgba(38, 44, 35, .05), rgba(0, 0, 0, .2)), 0 8px 18px light-dark(rgba(38, 44, 35, .04), rgba(0, 0, 0, 0)), inset 0 1px 0 light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .05));
+}
+
+/* Neo Apple 玻璃（原图 1）：日落暖光里的雾白展板。中性卡是雾面白瓷；星标卡是橙色丝绸，首页首位是祖母绿丝绸，当前项和主按钮是祖母绿凝胶。 */
+:root[data-skin="neo-apple"] {
+  --bg: light-dark(#ebe8e4, #1b1916); --bg-soft: light-dark(#f3f1ee, #22201c); --surface: light-dark(#f8f7f5, #2c2925); --surface-2: light-dark(#efece8, #34302b); --surface-elevated: light-dark(#faf9f7, #2f2c28);
+  --text: light-dark(#1d1d1f, #f3efe9); --text-2: light-dark(#3a3a3c, #ddd7cf); --muted: light-dark(#6e6a66, #aaa298); --faint: light-dark(#86807a, #958d83);
+  --line: light-dark(#ddd8d2, #3d3832); --line-soft: light-dark(#e8e4df, #36322d); --line-strong: light-dark(#c8c0b7, #5a534b); --control-border: light-dark(#ddd6ce, #4a443d);
+  --accent: light-dark(#0b6e52, #3fbf93); --accent-hover: light-dark(#095d45, #5ccfa6); --on-accent: light-dark(#ffffff, #06231a); --accent-soft: light-dark(#dcefe6, #173a2e); --accent-line: light-dark(#a6cdbd, #2b6b54);
+  --hover: light-dark(rgba(255, 255, 255, .62), rgba(255, 255, 255, .08)); --hover-soft: light-dark(#fbf9f6, #33302b); --selected-bg: light-dark(#ffffff, rgba(255, 255, 255, .1)); --selected-text: light-dark(#0a4d36, #e8f5ee);
+  --focus: light-dark(#0b6e52, #3fbf93); --ok: light-dark(#1e7a5a, #5ccfa6); --star: light-dark(#e8892f, #f4a259);
+  --radius-card: 22px; --radius-ctrl: 14px; --radius-pop: 26px;
+  --font-display: -apple-system, "SF Pro Display", BlinkMacSystemFont, "PingFang SC", sans-serif; --heading-weight: 600; --heading-tracking: 0;
+  --ease-pop: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --page-bg: radial-gradient(36vw 36vw at 97% -6%, light-dark(#fffbf2, rgba(255, 196, 128, .16)), light-dark(rgba(255, 244, 226, .55), rgba(255, 170, 90, .05)) 42%, transparent 70%),
+    radial-gradient(58vw 80vh at -8% 72%, light-dark(rgba(245, 158, 82, .72), rgba(222, 108, 34, .26)), transparent 70%),
+    radial-gradient(70vw 30vh at 55% 112%, light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .03)), transparent 70%),
+    linear-gradient(180deg, light-dark(#ece6e0, #1c1a17), light-dark(#d8cec5, #0f0e0c));
+  --shell-gap: 16px;
+  --nav-bg: linear-gradient(180deg, light-dark(rgba(255, 253, 250, .66), rgba(54, 50, 45, .62)), light-dark(rgba(250, 246, 241, .5), rgba(38, 35, 32, .58)));
+  --nav-blur: saturate(1.4) blur(24px); --nav-radius: 28px; --nav-edge: light-dark(rgba(255, 255, 255, .85), rgba(255, 255, 255, .08));
+  --nav-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .1)), 0 28px 60px -26px light-dark(rgba(120, 72, 32, .5), rgba(0, 0, 0, .75));
+  --nav-on-bg: linear-gradient(180deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, 0) 55%), linear-gradient(180deg, light-dark(#169270, #1fa57c), light-dark(#0b6e52, #0d6c50));
+  --nav-on-text: #ffffff; --nav-on-icon: #ffffff;
+  --nav-on-shadow: inset 0 1px 0 rgba(255, 255, 255, .38), inset 0 -2px 4px rgba(0, 40, 28, .25), 0 10px 20px -10px light-dark(rgba(8, 92, 66, .7), rgba(0, 0, 0, .7));
+  --main-bg: linear-gradient(180deg, light-dark(rgba(247, 245, 242, .86), rgba(36, 33, 30, .82)), light-dark(rgba(238, 236, 233, .8), rgba(27, 25, 23, .8))); --main-radius: 30px;
+  --main-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), inset 0 0 0 1px light-dark(rgba(255, 255, 255, .5), rgba(255, 255, 255, .03)), 0 40px 90px -40px light-dark(rgba(110, 66, 30, .5), rgba(0, 0, 0, .8));
+  --card-bg: linear-gradient(175deg, light-dark(#fefefd, #3b3732) 0%, light-dark(#f5f4f2, #312e2a) 52%, light-dark(#eeedea, #2b2825) 100%); --card-edge: light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .07));
+  --card-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .08)), 0 1px 2px light-dark(rgba(96, 66, 40, .07), rgba(0, 0, 0, .35)), 0 24px 44px -22px light-dark(rgba(118, 76, 40, .42), rgba(0, 0, 0, .72));
+  --card-shadow-hover: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .08)), 0 2px 3px light-dark(rgba(96, 66, 40, .07), rgba(0, 0, 0, .35)), 0 30px 50px -22px light-dark(rgba(118, 76, 40, .5), rgba(0, 0, 0, .78));
+  --pop-bg: light-dark(rgba(250, 248, 245, .88), rgba(40, 37, 33, .88)); --pop-blur: saturate(1.3) blur(24px);
+  --pop-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), 0 34px 80px -24px light-dark(rgba(80, 50, 24, .5), rgba(0, 0, 0, .75));
+  --btn-radius: 999px; --btn-edge: transparent; --btn-bg: linear-gradient(180deg, light-dark(#fffbf5, #4a443d), light-dark(#f6e9da, #3b3630)); --btn-bg-hover: linear-gradient(180deg, light-dark(#fffefb, #534c44), light-dark(#f9efe3, #433d36));
+  --btn-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .1)), 0 1px 2px light-dark(rgba(150, 105, 60, .2), rgba(0, 0, 0, .4)), 0 6px 14px -6px light-dark(rgba(150, 105, 60, .5), rgba(0, 0, 0, .6));
+  --btn-shadow-active: inset 0 2px 5px light-dark(rgba(150, 105, 60, .3), rgba(0, 0, 0, .5));
+  --pri-bg: linear-gradient(180deg, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0) 52%), linear-gradient(180deg, light-dark(#18936f, #2fb58c) 0%, light-dark(#0b6e52, #178a68) 58%, light-dark(#075039, #0f6f53) 100%);
+  --pri-bg-hover: linear-gradient(180deg, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 52%), linear-gradient(180deg, light-dark(#1ea57d, #3cc59a), light-dark(#0b6e52, #178a68)); --pri-edge: transparent; --pri-text: #ffffff;
+  --pri-shadow: inset 0 1px 0 rgba(255, 255, 255, .34), inset 0 -2px 4px rgba(0, 0, 0, .18), 0 8px 18px -6px light-dark(rgba(8, 83, 63, .62), rgba(0, 0, 0, .65));
+  --pri-shadow-active: inset 0 2px 5px rgba(0, 0, 0, .3), inset 0 -1px 0 rgba(255, 255, 255, .18);
+  --field-bg: light-dark(rgba(255, 252, 245, .95), rgba(50, 46, 41, .92)); --field-edge: light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .08)); --field-radius: 14px;
+  --field-shadow: inset 0 1px 2px light-dark(rgba(120, 88, 56, .12), rgba(0, 0, 0, .35)), 0 6px 14px -8px light-dark(rgba(120, 85, 50, .4), rgba(0, 0, 0, .55));
+  --field-focus: 0 0 0 3px light-dark(rgba(11, 110, 82, .2), rgba(63, 191, 147, .25)); --field-focus-edge: light-dark(#0b6e52, #3fbf93);
+  --track-bg: light-dark(#d8d0c7, #4a443e); --track-shadow: inset 0 1px 3px light-dark(rgba(90, 60, 30, .25), rgba(0, 0, 0, .5)); --track-on-bg: linear-gradient(180deg, light-dark(#18936f, #2fb58c), light-dark(#085b44, #127256));
+  --track-on-shadow: inset 0 1px 3px rgba(0, 0, 0, .25); --knob-bg: linear-gradient(180deg, #ffffff, #f0ece6); --knob-on-bg: linear-gradient(180deg, #ffffff, #f0ece6); --knob-shadow: 0 2px 6px rgba(60, 40, 20, .32), inset 0 1px 0 #ffffff;
+  --check-radius: 6px; --check-bg: light-dark(#fffdf9, #3a352f); --check-edge: light-dark(#e3d9cd, rgba(255, 255, 255, .12)); --check-shadow: 0 2px 5px -2px light-dark(rgba(120, 85, 50, .35), rgba(0, 0, 0, .5)), inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .08));
+  --check-on-bg: linear-gradient(180deg, light-dark(#18936f, #2fb58c), light-dark(#085b44, #127256)); --check-on-edge: transparent; --check-on-shadow: 0 4px 10px -3px rgba(8, 83, 63, .55), inset 0 1px 0 rgba(255, 255, 255, .3); --check-mark: #ffffff;
+  --seg-bg: light-dark(rgba(255, 255, 255, .42), rgba(255, 255, 255, .06)); --seg-shadow: inset 0 1px 3px light-dark(rgba(120, 85, 50, .14), rgba(0, 0, 0, .4)); --seg-radius: 999px;
+  --seg-on-bg: light-dark(#ffffff, #4a443e); --seg-on-text: light-dark(#0a4d36, #e9f5ef); --seg-on-shadow: 0 5px 12px -5px light-dark(rgba(120, 85, 50, .5), rgba(0, 0, 0, .6)), inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .1));
+  --chip-on-bg: var(--pri-bg); --chip-on-text: #ffffff; --chip-on-shadow: var(--pri-shadow);
+  --tile-radius: 32%; --tile-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 -2px 4px rgba(90, 50, 20, .12), 0 4px 10px -3px light-dark(rgba(110, 72, 38, .38), rgba(0, 0, 0, .55));
+  --tile-gloss: radial-gradient(120% 90% at 28% 10%, light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .3)), rgba(255, 255, 255, 0) 58%);
+  /* 深色模式下丝绸降一档明度（深琥珀），不在深色页面里亮成一块。 */
+  --na-orange: radial-gradient(135% 95% at 108% 120%, transparent 52%, light-dark(rgba(255, 236, 206, .62), rgba(255, 196, 140, .3)) 57.5%, rgba(255, 214, 160, 0) 64%),
+    radial-gradient(150% 105% at 112% 132%, transparent 57%, rgba(232, 112, 30, .5) 63%, transparent 71%),
+    radial-gradient(85% 70% at 4% 0%, light-dark(rgba(255, 247, 235, .8), rgba(255, 186, 120, .22)), transparent 62%),
+    linear-gradient(205deg, light-dark(#fde3c6, #a85c26) 0%, light-dark(#f7b877, #8f4a1a) 40%, light-dark(#ef9242, #783c13) 76%, light-dark(#e8812e, #68320f) 100%);
+  --na-green: linear-gradient(118deg, transparent 46%, rgba(120, 255, 200, .2) 52.5%, rgba(215, 255, 238, .42) 55%, rgba(120, 255, 200, .14) 57.5%, transparent 65%),
+    radial-gradient(125% 95% at 104% 118%, transparent 54%, rgba(70, 225, 165, .32) 60%, transparent 68%),
+    linear-gradient(162deg, #14855f 0%, #0b5d43 44%, #05392a 80%, #022519 100%);
+}
+
+/* Ivory Cobalt 象牙钴蓝（原图 2）：象牙软垫，左上白光、右下暖影；钴蓝凝胶只给星标卡、首页首位、当前项和主操作；分区标题是宽字距小标签配钴蓝斜线。 */
+:root[data-skin="ivory-cobalt"] {
+  --bg: light-dark(#f5f1eb, #1f2229); --bg-soft: light-dark(#f2eee8, #22252c); --surface: light-dark(#f4f0ea, #252830); --surface-2: light-dark(#ece7e0, #2b2f38); --surface-elevated: light-dark(#f6f2ec, #282b33);
+  --text: light-dark(#1b2232, #e9ecf3); --text-2: light-dark(#2d3446, #cfd4de); --muted: light-dark(#5c6374, #9aa1b0); --faint: light-dark(#767c8b, #858c9b);
+  --line: light-dark(#e3ddd5, #343844); --line-soft: light-dark(#ebe6df, #2d313b); --line-strong: light-dark(#cdc6bc, #4a5060); --control-border: light-dark(#e3ddd5, #3a3f4b);
+  --accent: light-dark(#0b5ae4, #4f8bff); --accent-hover: light-dark(#084fd2, #6c9dff); --on-accent: #ffffff; --accent-soft: light-dark(#dfe7f7, #1f2f52); --accent-line: light-dark(#a9c1f2, #36518f);
+  --hover: light-dark(#ece7e0, rgba(255, 255, 255, .06)); --hover-soft: light-dark(#f8f5f0, rgba(255, 255, 255, .04)); --selected-bg: light-dark(#f8f5f0, #2d313b); --selected-text: light-dark(#0b4fd0, #9ec0ff);
+  --focus: light-dark(#0b5ae4, #4f8bff); --ok: light-dark(#1f7a55, #6fcf9f); --star: light-dark(#0b5ae4, #6c9dff);
+  --radius-card: 22px; --radius-ctrl: 14px; --radius-pop: 24px;
+  --font-display: "Avenir Next", "Helvetica Neue", "PingFang SC", sans-serif; --heading-weight: 400; --heading-tracking: .02em; --label-tracking: .02em;
+  --page-bg: radial-gradient(70vw 60vh at 6% -8%, light-dark(rgba(255, 255, 255, .85), rgba(120, 150, 230, .06)), transparent 70%), linear-gradient(180deg, light-dark(#f8f4ee, #23252c), light-dark(#efe9e1, #1a1c22));
+  --shell-gap: 16px; --nav-radius: 26px; --nav-edge: light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .05));
+  --nav-bg: linear-gradient(165deg, light-dark(#fbf8f3, #2b2e37), light-dark(#f2ede6, #23262e));
+  --nav-shadow: inset 1px 1.5px 0 light-dark(#ffffff, rgba(255, 255, 255, .06)), inset -2px -3px 8px light-dark(rgba(176, 154, 128, .14), rgba(0, 0, 0, .25)), -8px -8px 20px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .025)), 12px 14px 30px light-dark(rgba(150, 126, 98, .3), rgba(0, 0, 0, .6));
+  --nav-on-bg: var(--ic-cobalt); --nav-on-text: #ffffff; --nav-on-icon: #ffffff;
+  --nav-on-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .42), inset 0 -3px 6px rgba(0, 25, 100, .3), 0 10px 20px -10px light-dark(rgba(11, 90, 228, .65), rgba(40, 110, 255, .5));
+  --card-bg: linear-gradient(160deg, light-dark(#fdfbf7, #2d3039) 0%, light-dark(#f6f2ec, #282b33) 55%, light-dark(#f0ebe4, #24272e) 100%); --card-edge: light-dark(rgba(255, 255, 255, .85), rgba(255, 255, 255, .05));
+  --card-shadow: inset 1px 1.5px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), inset -2px -3px 8px light-dark(rgba(176, 154, 128, .16), rgba(0, 0, 0, .28)), -7px -7px 16px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .025)), 9px 11px 24px light-dark(rgba(150, 126, 98, .32), rgba(0, 0, 0, .6));
+  --card-shadow-hover: inset 1px 1.5px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), inset -2px -3px 8px light-dark(rgba(176, 154, 128, .16), rgba(0, 0, 0, .28)), -8px -8px 18px light-dark(#ffffff, rgba(255, 255, 255, .03)), 12px 15px 30px light-dark(rgba(150, 126, 98, .36), rgba(0, 0, 0, .65));
+  --pop-bg: light-dark(#f6f2ec, #262930); --pop-shadow: inset 1px 1.5px 0 light-dark(#ffffff, rgba(255, 255, 255, .05)), 0 2px 4px light-dark(rgba(120, 100, 80, .08), rgba(0, 0, 0, .3)), 0 30px 60px -20px light-dark(rgba(110, 90, 70, .48), rgba(0, 0, 0, .75));
+  --btn-radius: 999px; --btn-edge: transparent; --btn-text: light-dark(#1b2232, #e9ecf3);
+  --btn-bg: linear-gradient(180deg, light-dark(#fcfaf6, #30343e), light-dark(#f0ebe4, #2a2e37)); --btn-bg-hover: linear-gradient(180deg, light-dark(#fefdfa, #353a45), light-dark(#f4f0ea, #2e323c));
+  --btn-shadow: inset 0 1.5px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), inset 0 -2px 4px light-dark(rgba(170, 150, 130, .18), rgba(0, 0, 0, .3)), 0 2px 3px light-dark(rgba(120, 100, 80, .16), rgba(0, 0, 0, .35)), 0 10px 18px -8px light-dark(rgba(120, 100, 80, .5), rgba(0, 0, 0, .6));
+  --btn-shadow-active: inset 2px 2px 5px light-dark(rgba(120, 100, 80, .24), rgba(0, 0, 0, .45)), inset -2px -2px 5px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .04));
+  --pri-bg: linear-gradient(180deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, 0) 50%), linear-gradient(180deg, light-dark(#2a71f3, #5b94ff) 0%, light-dark(#0b5ae4, #3b7bff) 55%, light-dark(#084fd2, #2f6be8) 100%);
+  --pri-bg-hover: linear-gradient(180deg, rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 50%), linear-gradient(180deg, light-dark(#3a7cf5, #6c9fff), light-dark(#0b5ae4, #3b7bff)); --pri-edge: transparent; --pri-text: #ffffff;
+  --pri-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .4), inset 0 -3px 5px rgba(0, 30, 110, .3), 0 10px 20px -8px light-dark(rgba(11, 90, 228, .6), rgba(40, 110, 255, .45));
+  --pri-shadow-active: inset 2px 2px 6px rgba(0, 30, 110, .45), inset -1px -1px 3px rgba(255, 255, 255, .25);
+  --field-bg: light-dark(#eeebe9, #2a2d35); --field-edge: light-dark(rgba(255, 255, 255, .75), rgba(255, 255, 255, .05)); --field-radius: 999px;
+  --field-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .85), rgba(255, 255, 255, .05)), 0 1px 2px light-dark(rgba(120, 100, 80, .12), rgba(0, 0, 0, .3)), 0 6px 14px -8px light-dark(rgba(120, 100, 80, .4), rgba(0, 0, 0, .6));
+  --field-focus: 0 0 0 3px light-dark(rgba(11, 90, 228, .18), rgba(79, 139, 255, .28)); --field-focus-edge: light-dark(#0b5ae4, #4f8bff);
+  --track-bg: light-dark(#d2cdc7, #1a1c22); --track-shadow: inset 2px 2px 4px light-dark(rgba(110, 95, 80, .35), rgba(0, 0, 0, .55)), inset -1px -1px 2px light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .05));
+  --track-on-bg: linear-gradient(180deg, light-dark(#2a71f3, #5b94ff), light-dark(#0a55dc, #2f6be8)); --track-on-shadow: inset 0 1px 3px rgba(0, 20, 80, .35);
+  --knob-bg: linear-gradient(180deg, light-dark(#fbfaf7, #e9ecf3), light-dark(#efebe5, #c9ceda)); --knob-on-bg: linear-gradient(180deg, #fbfaf7, #efebe5); --knob-shadow: 0 3px 6px rgba(60, 50, 40, .35), 0 1px 2px rgba(60, 50, 40, .25), inset 0 1px 0 #ffffff, inset 0 -2px 3px rgba(150, 135, 120, .25);
+  --check-radius: 5px; --check-bg: light-dark(#f5f1eb, #2b2f38); --check-edge: transparent;
+  --check-shadow: 0 2px 5px -1px light-dark(rgba(120, 100, 80, .38), rgba(0, 0, 0, .55)), inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .07));
+  --check-on-bg: linear-gradient(180deg, light-dark(#2a71f3, #5b94ff), light-dark(#0a55dc, #2f6be8)); --check-on-edge: transparent; --check-on-shadow: 0 4px 10px -3px rgba(11, 90, 228, .5), inset 0 1px 0 rgba(255, 255, 255, .3); --check-mark: #ffffff;
+  --seg-bg: light-dark(#ebe6df, #1d2026); --seg-radius: 999px; --seg-shadow: inset 2px 2px 5px light-dark(rgba(130, 110, 90, .22), rgba(0, 0, 0, .5)), inset -2px -2px 5px light-dark(rgba(255, 255, 255, .85), rgba(255, 255, 255, .04));
+  --seg-on-bg: linear-gradient(180deg, light-dark(#fbf9f5, #30343e), light-dark(#f2ede6, #2a2e37)); --seg-on-text: light-dark(#0b4fd0, #9ec0ff);
+  --seg-on-shadow: 0 1px 2px light-dark(rgba(120, 100, 80, .15), rgba(0, 0, 0, .35)), 0 4px 10px -4px light-dark(rgba(120, 100, 80, .42), rgba(0, 0, 0, .6)), inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .07));
+  --chip-on-bg: var(--pri-bg); --chip-on-text: #ffffff; --chip-on-shadow: var(--pri-shadow);
+  --tile-radius: 50%; --tile-shadow: inset 0 -2px 4px rgba(60, 40, 20, .1), 0 4px 9px -2px light-dark(rgba(130, 108, 84, .42), rgba(0, 0, 0, .55));
+  --tile-gloss: radial-gradient(circle at 34% 26%, light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .42)) 0, light-dark(rgba(255, 255, 255, .3), rgba(255, 255, 255, .1)) 24%, rgba(255, 255, 255, 0) 48%);
+  --ic-cobalt: linear-gradient(180deg, rgba(255, 255, 255, .26) 0, rgba(255, 255, 255, .06) 9px, rgba(255, 255, 255, 0) 22px), radial-gradient(110% 80% at 88% 115%, rgba(0, 22, 92, .38), transparent 62%), linear-gradient(155deg, light-dark(#2f78fb, #2259c8) 0%, light-dark(#1663f1, #1a4bb0) 38%, light-dark(#0a53da, #133f98) 70%, light-dark(#0744ba, #0d3180) 100%);
+}
+
+/* Mist Slate 雾灰（原图 3）：冷光里的磨砂玻璃板，白色发光厚边、斜向长投影；星标卡和首页首位是蓝色凝胶玻璃，当前项是凸起的玻璃块，图标嵌在一块凝胶里。 */
+:root[data-skin="mist-slate"] {
+  --bg: light-dark(#dfe5ee, #161b23); --bg-soft: light-dark(#e8edf4, #1b212b); --surface: light-dark(#f0f3f8, #252d39); --surface-2: light-dark(#e5eaf2, #2b3441); --surface-elevated: light-dark(#f3f6fa, #27303c);
+  --text: light-dark(#2a3445, #e7edf6); --text-2: light-dark(#3c4759, #c9d3e1); --muted: light-dark(#66728a, #9aa7ba); --faint: light-dark(#8490a3, #8592a6);
+  --line: light-dark(#cfd7e3, #323c4b); --line-soft: light-dark(#dbe2eb, #2b3441); --line-strong: light-dark(#aeb9c9, #4a5668); --control-border: light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .14));
+  --accent: light-dark(#4a74d8, #7d9ff0); --accent-hover: light-dark(#3f68cc, #95b2f5); --on-accent: light-dark(#ffffff, #0d1730); --accent-soft: light-dark(#dbe5f8, #22314f); --accent-line: light-dark(#a9c0ee, #3e5b96);
+  --hover: light-dark(rgba(255, 255, 255, .55), rgba(255, 255, 255, .07)); --hover-soft: light-dark(rgba(255, 255, 255, .45), rgba(255, 255, 255, .05)); --selected-bg: light-dark(#ffffff, rgba(255, 255, 255, .12)); --selected-text: light-dark(#2f5bc4, #b8cdfa);
+  --focus: light-dark(#4a74d8, #7d9ff0); --ok: light-dark(#2f7d63, #6fd0a6); --star: light-dark(#4f7be0, #8fb0f5);
+  --radius-card: 20px; --radius-ctrl: 12px; --radius-pop: 26px;
+  --heading-weight: 500; --heading-tracking: 0;
+  --page-bg: linear-gradient(116deg, transparent 14%, light-dark(rgba(255, 255, 255, .62), rgba(150, 180, 240, .07)) 30%, light-dark(rgba(255, 255, 255, .18), rgba(150, 180, 240, .02)) 41%, transparent 54%),
+    radial-gradient(70vw 60vh at 8% -10%, light-dark(rgba(255, 255, 255, .95), rgba(130, 160, 220, .14)), transparent 70%),
+    linear-gradient(180deg, light-dark(#e6ebf2, #171c25), light-dark(#d1d8e4, #0c1018));
+  --shell-gap: 16px;
+  --nav-bg: linear-gradient(180deg, light-dark(rgba(255, 255, 255, .5), rgba(70, 84, 106, .4)), light-dark(rgba(246, 249, 253, .34), rgba(52, 63, 82, .34)));
+  --nav-blur: saturate(1.25) blur(26px); --nav-radius: 26px; --nav-edge: light-dark(rgba(255, 255, 255, .98), rgba(255, 255, 255, .16));
+  --nav-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .65), rgba(255, 255, 255, .05)), inset 0 2px 0 light-dark(#ffffff, rgba(255, 255, 255, .12)), 0 2px 6px light-dark(rgba(70, 90, 130, .08), rgba(0, 0, 0, .3)), 18px 30px 60px -30px light-dark(rgba(60, 82, 128, .5), rgba(0, 0, 0, .8));
+  --nav-on-bg: linear-gradient(180deg, light-dark(#ffffff, rgba(255, 255, 255, .2)), light-dark(rgba(238, 243, 250, .96), rgba(255, 255, 255, .1))); --nav-on-text: light-dark(#2f5bc4, #c8d8fb); --nav-on-icon: #ffffff;
+  --nav-on-shadow: inset 0 0 0 1.5px light-dark(#ffffff, rgba(255, 255, 255, .22)), inset 0 -3px 6px light-dark(rgba(120, 140, 180, .18), rgba(0, 0, 0, .2)), 0 0 0 1px light-dark(rgba(160, 175, 200, .35), rgba(0, 0, 0, .3)), 0 10px 20px -10px light-dark(rgba(60, 80, 120, .55), rgba(0, 0, 0, .65));
+  --main-bg: linear-gradient(160deg, light-dark(rgba(255, 255, 255, .34), rgba(46, 56, 72, .4)), light-dark(rgba(240, 244, 250, .2), rgba(30, 37, 48, .34))); --main-radius: 30px;
+  --main-shadow: inset 0 0 0 1.5px light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .09)), inset 0 2px 0 light-dark(#ffffff, rgba(255, 255, 255, .12)), 9px 11px 0 -3px light-dark(rgba(255, 255, 255, .42), rgba(255, 255, 255, .04)), 9px 11px 0 -2px light-dark(rgba(150, 166, 196, .22), rgba(0, 0, 0, .25)), 24px 40px 80px -40px light-dark(rgba(55, 78, 125, .55), rgba(0, 0, 0, .8));
+  --card-bg: linear-gradient(160deg, light-dark(rgba(255, 255, 255, .84), rgba(80, 95, 120, .52)) 0%, light-dark(rgba(242, 246, 251, .66), rgba(56, 68, 88, .5)) 100%); --card-edge: light-dark(rgba(255, 255, 255, .98), rgba(255, 255, 255, .17));
+  --card-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .05)), inset 0 2px 0 light-dark(#ffffff, rgba(255, 255, 255, .1)), inset 0 -14px 26px -18px light-dark(rgba(110, 135, 180, .36), rgba(0, 0, 0, .32)), 0 1px 0 light-dark(rgba(140, 158, 190, .4), rgba(0, 0, 0, .45)), 12px 22px 40px -22px light-dark(rgba(55, 78, 125, .5), rgba(0, 0, 0, .75));
+  --card-shadow-hover: 0 0 0 3px light-dark(rgba(255, 255, 255, .62), rgba(255, 255, 255, .08)), inset 0 0 0 1px light-dark(rgba(255, 255, 255, .75), rgba(255, 255, 255, .06)), inset 0 2px 0 light-dark(#ffffff, rgba(255, 255, 255, .12)), 14px 26px 46px -22px light-dark(rgba(55, 78, 125, .55), rgba(0, 0, 0, .8));
+  --pop-bg: light-dark(rgba(244, 247, 251, .84), rgba(36, 44, 56, .86)); --pop-blur: saturate(1.2) blur(26px);
+  --pop-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .1)), inset 0 2px 0 light-dark(#ffffff, rgba(255, 255, 255, .1)), 20px 30px 70px -24px light-dark(rgba(50, 70, 110, .5), rgba(0, 0, 0, .75));
+  --btn-radius: 12px; --btn-edge: light-dark(rgba(255, 255, 255, .98), rgba(255, 255, 255, .14)); --btn-text: light-dark(#2a3445, #e7edf6);
+  --btn-bg: linear-gradient(180deg, light-dark(rgba(255, 255, 255, .9), rgba(80, 95, 120, .55)), light-dark(rgba(236, 241, 248, .72), rgba(56, 68, 88, .55))); --btn-bg-hover: linear-gradient(180deg, light-dark(#ffffff, rgba(92, 108, 134, .6)), light-dark(rgba(242, 246, 251, .85), rgba(64, 77, 98, .6)));
+  --btn-shadow: inset 0 -2px 4px light-dark(rgba(150, 170, 205, .2), rgba(0, 0, 0, .2)), 0 1px 2px light-dark(rgba(60, 80, 120, .12), rgba(0, 0, 0, .3)), 0 6px 14px -8px light-dark(rgba(60, 80, 120, .5), rgba(0, 0, 0, .6));
+  --btn-shadow-active: inset 0 2px 5px light-dark(rgba(90, 110, 150, .28), rgba(0, 0, 0, .45));
+  --pri-bg: var(--ms-gel); --pri-bg-hover: linear-gradient(180deg, rgba(255, 255, 255, .42) 0, rgba(255, 255, 255, .12) 9px, rgba(255, 255, 255, 0) 20px), linear-gradient(160deg, light-dark(#7c9dee, #7698ec), light-dark(#4870d6, #4269d0)); --pri-edge: transparent; --pri-text: #ffffff;
+  --pri-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), inset 0 -2px 3px rgba(30, 60, 140, .25), 0 8px 16px -6px light-dark(rgba(70, 112, 214, .6), rgba(80, 120, 240, .45));
+  --pri-shadow-active: inset 0 2px 5px rgba(20, 50, 130, .4);
+  --field-bg: light-dark(rgba(255, 255, 255, .62), rgba(30, 37, 48, .6)); --field-edge: light-dark(rgba(255, 255, 255, .98), rgba(255, 255, 255, .14)); --field-radius: 12px;
+  --field-shadow: inset 0 2px 4px light-dark(rgba(90, 110, 150, .14), rgba(0, 0, 0, .35)), 0 1px 0 light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .04));
+  --field-focus: 0 0 0 3px light-dark(rgba(95, 136, 232, .25), rgba(125, 159, 240, .3)), 0 0 18px light-dark(rgba(95, 136, 232, .28), rgba(125, 159, 240, .25)); --field-focus-edge: #ffffff;
+  --track-bg: light-dark(rgba(200, 208, 222, .85), rgba(20, 25, 33, .7)); --track-shadow: inset 0 1px 3px light-dark(rgba(80, 100, 140, .28), rgba(0, 0, 0, .5)), inset 0 0 0 1px light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .06));
+  --track-on-bg: var(--ms-gel); --track-on-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), inset 0 -1px 2px rgba(20, 50, 130, .3);
+  --knob-bg: linear-gradient(180deg, #ffffff, #eef2f8); --knob-on-bg: linear-gradient(180deg, #ffffff, #eef2f8); --knob-shadow: 0 2px 5px rgba(50, 70, 110, .32), inset 0 0 0 1px rgba(255, 255, 255, .9);
+  --check-radius: 5px; --check-bg: light-dark(rgba(255, 255, 255, .45), rgba(255, 255, 255, .06)); --check-edge: light-dark(rgba(255, 255, 255, .98), rgba(255, 255, 255, .16));
+  --check-shadow: inset 0 1px 3px light-dark(rgba(90, 110, 150, .22), rgba(0, 0, 0, .4)), 0 2px 4px -2px light-dark(rgba(90, 110, 150, .35), rgba(0, 0, 0, .5));
+  --check-on-bg: var(--ms-gel); --check-on-edge: transparent; --check-mark: #ffffff;
+  --check-on-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), 0 1px 0 rgba(40, 70, 160, .4), 0 5px 9px -3px light-dark(rgba(70, 112, 214, .6), rgba(80, 120, 240, .5));
+  --seg-bg: light-dark(rgba(255, 255, 255, .34), rgba(255, 255, 255, .05)); --seg-radius: 14px; --seg-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .75), rgba(255, 255, 255, .08)), inset 0 1px 3px light-dark(rgba(90, 110, 150, .18), rgba(0, 0, 0, .4));
+  --seg-on-bg: linear-gradient(180deg, light-dark(#ffffff, rgba(255, 255, 255, .18)), light-dark(#eef2f8, rgba(255, 255, 255, .1))); --seg-on-text: light-dark(#2f5bc4, #b8cdfa);
+  --seg-on-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .16)), 0 5px 12px -6px light-dark(rgba(60, 80, 120, .5), rgba(0, 0, 0, .6));
+  --chip-on-bg: var(--pri-bg); --chip-on-text: #ffffff; --chip-on-shadow: var(--pri-shadow);
+  --tile-radius: 28%; --tile-shadow: inset 0 0 0 1px light-dark(#ffffff, rgba(255, 255, 255, .2)), inset 0 -2px 3px light-dark(rgba(110, 135, 180, .2), rgba(0, 0, 0, .25)), 0 4px 9px -3px light-dark(rgba(60, 80, 120, .42), rgba(0, 0, 0, .6));
+  --ring: 0 0 0 3px light-dark(rgba(95, 136, 232, .3), rgba(125, 159, 240, .35));
+  --ms-gel: linear-gradient(180deg, rgba(255, 255, 255, .36) 0, rgba(255, 255, 255, .1) 9px, rgba(255, 255, 255, 0) 20px), linear-gradient(160deg, light-dark(#6f93ea, #6a8de8) 0%, light-dark(#4f77dc, #4a70d6) 55%, light-dark(#3d62c9, #3858c0) 100%);
+  --ms-slab: linear-gradient(180deg, rgba(255, 255, 255, .3) 0, rgba(255, 255, 255, .08) 8px, rgba(255, 255, 255, 0) 22px), radial-gradient(90% 70% at 50% 118%, rgba(150, 190, 255, .34), transparent 62%), linear-gradient(165deg, #5a7fe0 0%, #3e64cd 42%, #2c4fb3 100%);
+}
+
+/* Liquid 灰紫凝胶（原图 4、5）：暖灰底上的厚板与厚胶囊，底边有挤出厚度，按下变薄；星标是鼠尾草绿厚板，星标栏按原图排成绿、浅绿、灰蓝、淡紫四色；搜索框常亮淡紫光环。 */
+:root[data-skin="liquid"] {
+  --bg: light-dark(#bdbab5, #262624); --bg-soft: light-dark(#c6c3be, #2c2c29); --surface: light-dark(#efeeea, #3a3a37); --surface-2: light-dark(#e4e2dd, #43433f); --surface-elevated: light-dark(#f1f0ec, #3d3d3a);
+  --text: light-dark(#2c2e2b, #ecebe6); --text-2: light-dark(#3b3e3a, #d6d5cf); --muted: light-dark(#5b5e59, #aaa9a3); --faint: light-dark(#6a6d68, #96958f);
+  --line: light-dark(#cfccc6, #4a4a46); --line-soft: light-dark(#dcd9d4, #42423e); --line-strong: light-dark(#a6a39d, #5e5e59); --control-border: transparent;
+  --accent: light-dark(#4f6b5a, #9dbba7); --accent-hover: light-dark(#435d4d, #b2ccba); --on-accent: light-dark(#ffffff, #18291f); --accent-soft: light-dark(#d9e1da, #34443a); --accent-line: light-dark(#a9b9ad, #4f6657);
+  --hover: light-dark(rgba(255, 255, 255, .42), rgba(255, 255, 255, .07)); --hover-soft: light-dark(#f4f3f0, #41413d); --selected-bg: light-dark(#7f9886, #5f7a69); --selected-text: #ffffff;
+  --focus: light-dark(#8e80d6, #a99cf0); --ok: light-dark(#4f7a60, #8fc5a0); --star: light-dark(#7f71b8, #b5aaea);
+  --radius-card: 18px; --radius-ctrl: 12px; --radius-pop: 22px; --heading-weight: 600;
+  --page-bg: radial-gradient(80vw 70vh at 50% -6%, light-dark(rgba(255, 255, 255, .34), rgba(255, 255, 255, .05)), transparent 70%), radial-gradient(60vw 50vh at 100% 100%, light-dark(rgba(255, 238, 214, .28), rgba(255, 210, 160, .03)), transparent 70%), linear-gradient(180deg, light-dark(#c4c1bc, #2b2b29), light-dark(#b0ada7, #1f1f1d));
+  --shell-gap: 16px; --nav-bg: linear-gradient(180deg, light-dark(#efeeea, #383835), light-dark(#e7e5e1, #323230)); --nav-radius: 24px; --nav-edge: light-dark(#8fa596, #5f7a69);
+  --nav-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .06)), 0 6px 0 light-dark(#a9a69f, #1a1a18), 0 18px 30px -12px light-dark(rgba(40, 38, 34, .5), rgba(0, 0, 0, .7));
+  --nav-on-bg: var(--lq-sage); --nav-on-text: #ffffff; --nav-on-icon: #ffffff;
+  --nav-on-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 3px 0 var(--lq-sage-edge), 0 6px 10px -4px light-dark(rgba(40, 50, 44, .5), rgba(0, 0, 0, .6));
+  --card-bg: linear-gradient(180deg, light-dark(#f5f4f1, #403f3c), light-dark(#e9e8e4, #363633)); --card-edge: light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .05));
+  --card-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .07)), inset 0 -2px 0 light-dark(rgba(175, 170, 160, .25), rgba(0, 0, 0, .18)), 0 6px 0 light-dark(#c2beb6, #1f1f1d), 0 7px 0 light-dark(rgba(60, 55, 45, .16), rgba(0, 0, 0, .3)), 0 18px 26px -10px light-dark(rgba(50, 46, 40, .52), rgba(0, 0, 0, .7));
+  --card-shadow-hover: inset 0 1px 0 light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .07)), inset 0 -2px 0 light-dark(rgba(175, 170, 160, .25), rgba(0, 0, 0, .18)), 0 7px 0 light-dark(#c4c1ba, #1f1f1d), 0 8px 0 light-dark(rgba(60, 55, 45, .14), rgba(0, 0, 0, .3)), 0 22px 30px -12px light-dark(rgba(50, 46, 40, .55), rgba(0, 0, 0, .75));
+  --pop-bg: light-dark(#efeeea, #3a3a37); --pop-shadow: 0 6px 0 light-dark(#c4c1ba, #1f1f1d), 0 30px 60px -20px light-dark(rgba(40, 38, 34, .6), rgba(0, 0, 0, .8));
+  --btn-radius: 999px; --btn-edge: transparent; --btn-text: light-dark(#2c2e2b, #ecebe6);
+  --btn-bg: linear-gradient(180deg, light-dark(#f7f6f3, #45453f), light-dark(#e8e7e3, #3a3a36)); --btn-bg-hover: linear-gradient(180deg, light-dark(#fbfaf8, #4b4b45), light-dark(#eeede9, #40403b));
+  --btn-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), 0 3px 0 light-dark(#bdbab3, #1f1f1d), 0 6px 10px -3px light-dark(rgba(50, 46, 40, .45), rgba(0, 0, 0, .6));
+  --btn-shadow-active: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .07)), 0 1px 0 light-dark(#bdbab3, #1f1f1d), 0 2px 4px -1px light-dark(rgba(50, 46, 40, .4), rgba(0, 0, 0, .5));
+  --pri-bg: var(--lq-sage); --pri-bg-hover: linear-gradient(rgba(255, 255, 255, .03), rgba(255, 255, 255, .03)), var(--lq-sage); --pri-edge: transparent; --pri-text: #ffffff;
+  --pri-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 3px 0 var(--lq-sage-edge), 0 7px 12px -4px light-dark(rgba(40, 55, 45, .55), rgba(0, 0, 0, .6));
+  --pri-shadow-active: inset 0 1px 0 rgba(255, 255, 255, .3), 0 1px 0 var(--lq-sage-edge), 0 2px 4px -1px rgba(40, 55, 45, .5);
+  --field-bg: light-dark(#f3f2ef, #2f2f2c); --field-edge: transparent; --field-radius: 999px;
+  --field-shadow: inset 0 2px 3px light-dark(rgba(60, 55, 45, .2), rgba(0, 0, 0, .45)), 0 1px 0 light-dark(rgba(255, 255, 255, .65), rgba(255, 255, 255, .05));
+  --field-focus: 0 0 0 3px light-dark(#d9d3f6, #5c5390), 0 0 22px 4px light-dark(rgba(168, 150, 255, .65), rgba(150, 135, 240, .5)); --field-focus-edge: light-dark(#b9adf0, #a99cf0);
+  --track-bg: light-dark(#cfccc6, #2a2a27); --track-shadow: inset 0 2px 3px light-dark(rgba(60, 55, 45, .32), rgba(0, 0, 0, .55));
+  --track-on-bg: var(--lq-sage); --track-on-shadow: inset 0 2px 3px rgba(30, 45, 36, .35);
+  --knob-bg: linear-gradient(180deg, #fbfaf8, #e9e8e4); --knob-on-bg: linear-gradient(180deg, #fbfaf8, #e9e8e4); --knob-shadow: 0 2px 0 #bdbab3, 0 3px 6px rgba(40, 38, 34, .4);
+  --check-radius: 6px; --check-bg: light-dark(#f4f3f0, #45453f); --check-edge: transparent; --check-shadow: 0 2px 0 light-dark(#c2bfb8, #1f1f1d), 0 3px 5px -1px light-dark(rgba(50, 46, 40, .35), rgba(0, 0, 0, .5));
+  --check-on-bg: var(--lq-sage); --check-on-edge: transparent; --check-on-shadow: 0 2px 0 var(--lq-sage-edge), 0 3px 5px -1px rgba(40, 55, 45, .45); --check-mark: #ffffff;
+  --seg-bg: light-dark(#e2e0db, #2f2f2c); --seg-radius: 999px; --seg-shadow: inset 0 2px 3px light-dark(rgba(60, 55, 45, .22), rgba(0, 0, 0, .45));
+  --seg-on-bg: var(--lq-sage); --seg-on-text: #ffffff; --seg-on-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 2px 0 var(--lq-sage-edge), 0 4px 6px -2px rgba(40, 55, 45, .45);
+  --chip-on-bg: var(--pri-bg); --chip-on-text: #ffffff; --chip-on-shadow: var(--pri-shadow);
+  --tile-radius: 28%; --tile-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 2px 0 light-dark(rgba(60, 55, 45, .22), rgba(0, 0, 0, .45)), 0 5px 9px -3px light-dark(rgba(40, 38, 34, .4), rgba(0, 0, 0, .55));
+  --ring: 0 0 0 3px light-dark(#d9d3f6, #5c5390), 0 0 16px 3px light-dark(rgba(168, 150, 255, .6), rgba(150, 135, 240, .45));
+  --lq-halo: 0 0 0 2px light-dark(#d2caf8, #6a60ad), 0 0 18px 2px light-dark(rgba(168, 150, 255, .5), rgba(150, 135, 240, .34));
+  --lq-sage: linear-gradient(180deg, rgba(255, 255, 255, .16) 0, rgba(255, 255, 255, .04) 10px, rgba(255, 255, 255, 0) 22px), linear-gradient(180deg, light-dark(#5c7a66, #567461), light-dark(#557260, #4c6756)); --lq-sage-edge: light-dark(#435a4b, #33463a);
+  --lq-pale: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 46%), linear-gradient(180deg, light-dark(#d2d9cf, #5b6559), light-dark(#c3cbc0, #4f584d)); --lq-pale-edge: light-dark(#9ea89b, #343b33);
+  --lq-slate: linear-gradient(180deg, rgba(255, 255, 255, .14) 0, rgba(255, 255, 255, .04) 10px, rgba(255, 255, 255, 0) 22px), linear-gradient(180deg, light-dark(#5e7178, #5b6d74), light-dark(#52656c, #4f6067)); --lq-slate-edge: light-dark(#43545a, #344147);
+  --lq-lav: linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, 0) 46%), linear-gradient(180deg, light-dark(#c6c0dd, #6e6690), light-dark(#b6aed2, #625a82)); --lq-lav-edge: light-dark(#9189b0, #433c5e);
+}
+
+/* Dusk Widgets 暮色（原图 6）：浅灰同色新拟物，左上白光、右下灰影；选中与主操作是深藏青胶囊配青蓝霓虹描边。 */
+:root[data-skin="dusk-widgets"] {
+  --bg: light-dark(#e6e6e8, #1d1e24); --bg-soft: light-dark(#e9e9eb, #202128); --surface: light-dark(#e8e8ea, #21222a); --surface-2: light-dark(#e1e1e4, #262730); --surface-elevated: light-dark(#ebebed, #23242c);
+  --text: light-dark(#17171f, #e6e7ee); --text-2: light-dark(#2a2a35, #c9cad6); --muted: light-dark(#666672, #9a9bab); --faint: light-dark(#80808b, #868797);
+  --line: light-dark(#d6d6db, #30313c); --line-soft: light-dark(#dedee2, #2a2b35); --line-strong: light-dark(#b9b9c1, #464858); --control-border: transparent;
+  --accent: light-dark(#24407a, #5fc6ff); --accent-hover: light-dark(#1b3266, #86d6ff); --on-accent: light-dark(#7fd8ff, #06121f); --accent-soft: light-dark(#d9dce6, #1a2740); --accent-line: light-dark(#a7b3cf, #2c4a70);
+  --hover: light-dark(rgba(255, 255, 255, .5), rgba(255, 255, 255, .05)); --hover-soft: light-dark(#ececee, #25262f); --selected-bg: light-dark(#14142c, #0b0b18); --selected-text: light-dark(#8fdcff, #8fdcff);
+  --focus: light-dark(#2aa8f0, #5fc6ff); --ok: light-dark(#257a63, #6fd8b0); --star: light-dark(#1f6fd6, #5fc6ff);
+  --radius-card: 24px; --radius-ctrl: 16px; --radius-pop: 28px;
+  --font-display: "Avenir Next", "Helvetica Neue", "PingFang SC", sans-serif; --heading-weight: 300; --heading-tracking: 0; --label-tracking: .02em;
+  --page-bg: linear-gradient(180deg, light-dark(#e9e9eb, #202128), light-dark(#e2e2e5, #1a1b20));
+  --shell-gap: 20px; --nav-bg: light-dark(#e8e8ea, #21222a); --nav-radius: 28px; --nav-edge: transparent;
+  --nav-shadow: -8px -8px 18px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .035)), 9px 10px 20px light-dark(rgba(155, 155, 165, .5), rgba(0, 0, 0, .55));
+  --nav-on-bg: radial-gradient(120% 160% at 50% 0%, light-dark(#26264a, #1a1a36), light-dark(#12122a, #0a0a17)); --nav-on-text: #8fdcff; --nav-on-icon: #4fc3ff;
+  --nav-on-shadow: inset 0 0 0 1px rgba(80, 190, 255, .65), 0 0 14px rgba(60, 170, 255, .28), 4px 5px 10px light-dark(rgba(150, 150, 160, .5), rgba(0, 0, 0, .5));
+  --card-bg: light-dark(#e8e8ea, #21222a); --card-edge: transparent;
+  --card-shadow: -9px -9px 18px light-dark(#ffffff, rgba(255, 255, 255, .035)), 10px 11px 22px light-dark(rgba(150, 150, 162, .6), rgba(0, 0, 0, .58));
+  --card-shadow-hover: -9px -9px 20px light-dark(rgba(255, 255, 255, 1), rgba(255, 255, 255, .045)), 11px 12px 22px light-dark(rgba(150, 150, 162, .55), rgba(0, 0, 0, .6));
+  --pop-bg: light-dark(#e8e8ea, #21222a); --pop-shadow: -10px -10px 24px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .03)), 14px 16px 30px light-dark(rgba(150, 150, 160, .55), rgba(0, 0, 0, .65));
+  --btn-radius: 999px; --btn-edge: transparent; --btn-text: light-dark(#17171f, #e6e7ee); --btn-bg: light-dark(#e8e8ea, #21222a); --btn-bg-hover: light-dark(#ececee, #252630);
+  --btn-shadow: -5px -5px 10px light-dark(#ffffff, rgba(255, 255, 255, .04)), 5px 6px 12px light-dark(rgba(150, 150, 162, .58), rgba(0, 0, 0, .55));
+  --btn-shadow-active: inset 3px 3px 7px light-dark(rgba(155, 155, 165, .5), rgba(0, 0, 0, .55)), inset -3px -3px 7px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .035));
+  --pri-bg: radial-gradient(120% 160% at 50% 0%, light-dark(#26264a, #1a1a36), light-dark(#10102a, #08081a)); --pri-bg-hover: radial-gradient(120% 160% at 50% 0%, light-dark(#2e2e58, #20203f), light-dark(#14142e, #0b0b1e)); --pri-edge: transparent; --pri-text: #8fdcff;
+  --pri-shadow: inset 0 0 0 1.5px rgba(80, 190, 255, .85), 0 0 14px rgba(60, 170, 255, .32), 5px 6px 12px light-dark(rgba(150, 150, 160, .55), rgba(0, 0, 0, .55)), -4px -4px 10px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .03));
+  --pri-shadow-active: inset 0 0 0 1.5px rgba(80, 190, 255, .95), 0 0 20px rgba(60, 170, 255, .5), inset 0 2px 6px rgba(0, 0, 0, .6);
+  --field-bg: light-dark(#e3e3e6, #1b1c22); --field-edge: transparent; --field-radius: 999px;
+  --field-shadow: inset 3px 3px 7px light-dark(rgba(155, 155, 165, .5), rgba(0, 0, 0, .55)), inset -3px -3px 7px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .035));
+  --field-focus: 0 0 0 2px rgba(63, 183, 255, .55), 0 0 16px rgba(63, 183, 255, .35); --field-focus-edge: transparent;
+  --track-bg: light-dark(#e1e1e4, #1a1b21); --track-shadow: inset 2px 2px 5px light-dark(rgba(155, 155, 165, .55), rgba(0, 0, 0, .6)), inset -2px -2px 5px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .035));
+  --track-on-bg: radial-gradient(120% 160% at 50% 0%, #26264a, #10102a); --track-on-shadow: inset 0 0 0 1.5px rgba(80, 190, 255, .8), 0 0 10px rgba(60, 170, 255, .35);
+  --knob-bg: linear-gradient(180deg, light-dark(#f2f2f4, #3a3b47), light-dark(#e2e2e6, #2c2d37)); --knob-on-bg: radial-gradient(circle at 40% 35%, #e9fbff, #7fd8ff 70%); --knob-shadow: 0 2px 5px rgba(80, 80, 95, .4);
+  --check-radius: 6px; --check-bg: light-dark(#e8e8ea, #21222a); --check-edge: transparent;
+  --check-shadow: -2px -2px 4px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .04)), 2px 3px 5px light-dark(rgba(155, 155, 165, .55), rgba(0, 0, 0, .55));
+  --check-on-bg: radial-gradient(120% 160% at 50% 0%, #26264a, #10102a); --check-on-edge: transparent; --check-on-shadow: inset 0 0 0 1px rgba(80, 190, 255, .85), 0 0 8px rgba(60, 170, 255, .4); --check-mark: #7fd8ff;
+  --seg-bg: light-dark(#e3e3e6, #1b1c22); --seg-radius: 999px; --seg-shadow: inset 3px 3px 6px light-dark(rgba(155, 155, 165, .5), rgba(0, 0, 0, .55)), inset -3px -3px 6px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .035));
+  --seg-on-bg: radial-gradient(120% 160% at 50% 0%, #26264a, #10102a); --seg-on-text: #8fdcff; --seg-on-shadow: inset 0 0 0 1px rgba(80, 190, 255, .7), 0 0 10px rgba(60, 170, 255, .3);
+  --chip-on-bg: var(--pri-bg); --chip-on-text: #8fdcff; --chip-on-shadow: inset 0 0 0 1px rgba(80, 190, 255, .75), 0 0 10px rgba(60, 170, 255, .3);
+  --tile-radius: 30%; --tile-shadow: -3px -3px 6px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .04)), 3px 4px 7px light-dark(rgba(155, 155, 165, .55), rgba(0, 0, 0, .55));
+  --ring: 0 0 0 2px rgba(63, 183, 255, .6), 0 0 16px rgba(63, 183, 255, .4);
+  --dk-widget: radial-gradient(120% 140% at 30% 0%, light-dark(#24244a, #1a1a38), light-dark(#10102a, #070712) 70%);
+}
+
+/* Cardiology（原图 7）：石墨外壳包住浅米灰内容区；骨白卡片、深色药丸标签；星标卡和首页首位是石墨卡，荧光黄绿只做节点与强调。 */
+:root[data-skin="cardiology"] {
+  --bg: light-dark(#e2e2dc, #2a2c2b); --bg-soft: light-dark(#e8e8e3, #2f3130); --surface: light-dark(#efefea, #343635); --surface-2: light-dark(#e7e7e1, #3b3d3c); --surface-elevated: light-dark(#f3f3ef, #383a39);
+  --text: light-dark(#232525, #ecece6); --text-2: light-dark(#3a3c3c, #d6d6d0); --muted: light-dark(#6a6c69, #a9aaa4); --faint: light-dark(#7d7f7b, #94958f);
+  --line: light-dark(#d2d2cb, #454746); --line-soft: light-dark(#dbdbd5, #3d3f3e); --line-strong: light-dark(#b5b6af, #5a5c5b); --control-border: transparent;
+  --accent: light-dark(#2e3232, #e3ec4f); --accent-hover: light-dark(#1d2020, #eef37a); --on-accent: light-dark(#ffffff, #1d2020); --accent-soft: light-dark(#d9dbd2, #3f4236); --accent-line: light-dark(#b5b6af, #6a6f45);
+  --hover: light-dark(rgba(255, 255, 255, .55), rgba(255, 255, 255, .06)); --hover-soft: light-dark(#f3f3ef, #3a3c3b); --selected-bg: light-dark(#ffffff, #3f4241); --selected-text: light-dark(#232525, #ecece6);
+  --focus: light-dark(#2e3232, #e3ec4f); --ok: light-dark(#4d7a3a, #b9d36a); --star: light-dark(#232525, #e3ec4f); --neon: #e3ec4f;
+  --radius-card: 20px; --radius-ctrl: 14px; --radius-pop: 24px;
+  --font-display: "Urbanist", "Manrope", "Avenir Next", "PingFang SC", sans-serif; --heading-weight: 500; --heading-tracking: 0;
+  --page-bg: radial-gradient(60vw 50vh at 30% -10%, light-dark(rgba(255, 255, 255, .1), rgba(255, 255, 255, .03)), transparent 70%), linear-gradient(180deg, light-dark(#5b5d5b, #1e1f1f), light-dark(#434544, #121313));
+  --shell-gap: 12px; --nav-bg: transparent; --nav-edge: transparent; --nav-shadow: 0 0 0 0 transparent;
+  --nav-text: #e3e3dd; --nav-muted: #b2b3ac; --nav-hover: rgba(255, 255, 255, .08);
+  --nav-on-bg: linear-gradient(180deg, light-dark(#f4f4f0, #353837), light-dark(#e6e6e0, #2c2e2d)); --nav-on-text: light-dark(#232525, #ecece6); --nav-on-icon: light-dark(#232525, #e3ec4f);
+  --nav-on-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .06)), 0 6px 14px -8px rgba(0, 0, 0, .55);
+  --main-bg: linear-gradient(180deg, light-dark(#e5e5df, #2b2d2c), light-dark(#dededa, #262827)); --main-radius: 30px;
+  --main-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .05)), 0 0 0 1px light-dark(rgba(0, 0, 0, .06), rgba(0, 0, 0, .35)), 0 18px 40px -24px rgba(0, 0, 0, .55);
+  --card-bg: linear-gradient(180deg, light-dark(#f9f9f5, #383a39), light-dark(#f1f1ec, #313332)); --card-edge: light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .05));
+  --card-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .05)), 0 0 0 1px light-dark(rgba(40, 42, 40, .05), rgba(0, 0, 0, .25)), 0 12px 24px -16px light-dark(rgba(30, 32, 30, .42), rgba(0, 0, 0, .6));
+  --card-shadow-hover: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .05)), 0 0 0 1px light-dark(rgba(40, 42, 40, .06), rgba(0, 0, 0, .25)), 0 18px 32px -16px light-dark(rgba(30, 32, 30, .48), rgba(0, 0, 0, .65));
+  --pop-bg: light-dark(#f2f2ee, #343635); --pop-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .05)), 0 26px 56px -20px light-dark(rgba(20, 22, 22, .55), rgba(0, 0, 0, .8));
+  --btn-radius: 999px; --btn-edge: transparent; --btn-text: light-dark(#232525, #ecece6); --btn-bg: linear-gradient(180deg, light-dark(#fdfdfb, #424544), light-dark(#f5f5f1, #3a3d3c)); --btn-bg-hover: light-dark(#ffffff, #484b4a);
+  --btn-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .06)), 0 1px 2px light-dark(rgba(40, 42, 40, .1), rgba(0, 0, 0, .35)), 0 4px 10px -5px light-dark(rgba(40, 42, 40, .28), rgba(0, 0, 0, .5)); --btn-shadow-active: inset 0 1px 3px light-dark(rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
+  --pri-bg: linear-gradient(180deg, light-dark(#3d4141, #ecf35e), light-dark(#262929, #d9e23f)); --pri-bg-hover: linear-gradient(180deg, light-dark(#454949, #f1f67c), light-dark(#2c3030, #e3ec4f)); --pri-edge: transparent; --pri-text: light-dark(#ffffff, #1d2020);
+  --pri-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .14), rgba(255, 255, 255, .5)), 0 6px 14px -6px light-dark(rgba(20, 22, 22, .55), rgba(227, 236, 79, .38)); --pri-shadow-active: inset 0 2px 4px rgba(0, 0, 0, .35);
+  --field-bg: light-dark(#fbfbf9, #3a3c3b); --field-edge: transparent; --field-radius: 999px; --field-shadow: inset 0 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .05)), 0 1px 2px light-dark(rgba(40, 42, 40, .1), rgba(0, 0, 0, .35));
+  --field-focus: 0 0 0 3px rgba(227, 236, 79, .75); --field-focus-edge: transparent;
+  --track-bg: light-dark(#d2d2cb, #4a4c4b); --track-shadow: inset 0 1px 2px rgba(0, 0, 0, .15); --track-on-bg: light-dark(#2e3232, #1d2020); --track-on-shadow: 0 0 0 0 transparent;
+  --knob-bg: #fafaf8; --knob-on-bg: #e3ec4f; --knob-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  --check-radius: 5px; --check-bg: light-dark(#fafaf8, #3a3c3b); --check-edge: transparent; --check-shadow: 0 1px 2px light-dark(rgba(40, 42, 40, .14), rgba(0, 0, 0, .4));
+  --check-on-bg: light-dark(#2e3232, #1d2020); --check-on-edge: transparent; --check-on-shadow: 0 0 0 0 transparent; --check-mark: #e3ec4f;
+  --seg-bg: light-dark(#d9d9d2, #303231); --seg-radius: 999px; --seg-shadow: inset 0 1px 2px light-dark(rgba(40, 42, 40, .1), rgba(0, 0, 0, .3)); --seg-on-bg: light-dark(#ffffff, #4a4d4c); --seg-on-text: light-dark(#232525, #ecece6); --seg-on-shadow: 0 2px 6px -2px light-dark(rgba(40, 42, 40, .3), rgba(0, 0, 0, .5));
+  --chip-on-bg: light-dark(#2e3232, #e3ec4f); --chip-on-text: light-dark(#ffffff, #1d2020); --chip-on-shadow: 0 0 0 0 transparent;
+  --tile-radius: 50%; --tile-shadow: inset 0 0 0 1px light-dark(rgba(40, 42, 40, .06), rgba(255, 255, 255, .06)), 0 2px 4px -1px light-dark(rgba(40, 42, 40, .18), rgba(0, 0, 0, .45));
+  --ring: 0 0 0 3px rgba(227, 236, 79, .8);
+  --cd-graphite: radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, .07), transparent 55%), linear-gradient(160deg, light-dark(#3b3f3f, #222525) 0%, light-dark(#2c2f2f, #1a1c1c) 50%, light-dark(#222424, #141515) 100%);
+}
+
+/* 素笺（原图 8，去掉桌面后）：白纸卡片平铺在浅纸桌上，光从右上来，柔影落向左下；黑墨只给主操作、当前项和节点，金色细线串起分区和分组树；星标卡叠成一沓纸，图标是白瓷圆片和瓦楞纸方块。键名沿用 cream-paper，后台白名单不用改。 */
+:root[data-skin="cream-paper"] {
+  --bg: light-dark(#e9e6e0, #171614); --bg-soft: light-dark(#f5f3ef, #1d1c19); --surface: light-dark(#fffefb, #262421); --surface-2: light-dark(#f6f4ef, #2c2a26); --surface-elevated: light-dark(#fffefc, #2b2926);
+  --text: light-dark(#161512, #f2eee6); --text-2: light-dark(#36332d, #d8d2c7); --muted: light-dark(#605b52, #aaa397); --faint: light-dark(#756f65, #958e82);
+  --line: light-dark(#e5e1d9, #35322d); --line-soft: light-dark(#eeebe5, #2e2c28); --line-strong: light-dark(#c9c2b5, #4c4740); --control-border: light-dark(#dbd5ca, #45413a);
+  --accent: light-dark(#1b1a17, #f2eee6); --accent-hover: light-dark(#000000, #ffffff); --on-accent: light-dark(#fffdf8, #171613); --accent-soft: light-dark(#f0ede7, #312f2b); --accent-line: light-dark(#d8d1c4, #4c4740);
+  --hover: light-dark(rgba(27, 26, 23, .045), rgba(255, 250, 240, .06)); --hover-soft: light-dark(#fbfaf7, #2b2926); --selected-bg: var(--accent-soft); --selected-text: var(--text);
+  --focus: light-dark(#94723a, #d6b57c); --ok: light-dark(#4d6a43, #a9c79a); --star: light-dark(#9a783c, #d6b57c); --mark: light-dark(#f3e3bf, #5a4a2a);
+  --gold: light-dark(#bb9a5f, #b89760); --gold-ink: light-dark(#85642e, #d6b57c); --ink: light-dark(#1b1a17, #f2eee6);
+  --radius-card: 12px; --radius-ctrl: 8px; --radius-pop: 16px;
+  --font-display: "Helvetica Neue", -apple-system, "PingFang SC", sans-serif; --heading-weight: 700; --heading-tracking: 0; --label-tracking: .02em;
+  --page-bg: radial-gradient(75vw 80vh at 104% -8%, light-dark(#f8f7f4, rgba(255, 240, 214, .05)), transparent 70%), radial-gradient(70vw 70vh at -12% 112%, light-dark(rgba(96, 84, 66, .17), rgba(0, 0, 0, .4)), transparent 70%), linear-gradient(205deg, light-dark(#eeebe6, #1d1c19), light-dark(#e1ddd6, #121110));
+  --paper-edge: inset -1px 1px 0 light-dark(#ffffff, rgba(255, 246, 228, .07)), 0 0 0 .5px light-dark(rgba(64, 52, 34, .1), rgba(0, 0, 0, .55));
+  --shell-gap: 20px; --nav-radius: 14px; --nav-edge: transparent;
+  --nav-bg: linear-gradient(215deg, light-dark(#fffffe, #292724), light-dark(#fcfbf8, #252320));
+  --nav-shadow: var(--paper-edge), -1px 2px 2px light-dark(rgba(64, 52, 34, .06), rgba(0, 0, 0, .3)), -12px 20px 34px -16px light-dark(rgba(64, 52, 34, .24), rgba(0, 0, 0, .65)), -26px 40px 70px -34px light-dark(rgba(64, 52, 34, .2), rgba(0, 0, 0, .5));
+  --nav-on-bg: linear-gradient(180deg, light-dark(#2c2b27, #fffdf8), light-dark(#151412, #ebe5d9)); --nav-on-text: light-dark(#fffdf8, #171613); --nav-on-icon: light-dark(#d9bb84, #85642e);
+  --nav-on-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .12), #ffffff), -2px 4px 10px -4px light-dark(rgba(20, 18, 14, .5), rgba(0, 0, 0, .65));
+  --main-bg: transparent; --main-radius: 0px; --main-shadow: 0 0 0 0 transparent;
+  --card-bg: linear-gradient(215deg, light-dark(#ffffff, #2a2825) 0%, light-dark(#fefdfa, #262421) 55%, light-dark(#faf8f3, #23211e) 100%); --card-edge: transparent;
+  --card-shadow: var(--paper-edge), -1px 2px 2px light-dark(rgba(64, 52, 34, .07), rgba(0, 0, 0, .28)), -10px 16px 26px -12px light-dark(rgba(64, 52, 34, .27), rgba(0, 0, 0, .62)), -24px 36px 60px -30px light-dark(rgba(64, 52, 34, .24), rgba(0, 0, 0, .5));
+  --card-shadow-hover: var(--paper-edge), -2px 3px 3px light-dark(rgba(64, 52, 34, .06), rgba(0, 0, 0, .3)), -14px 22px 32px -14px light-dark(rgba(64, 52, 34, .26), rgba(0, 0, 0, .66)), -30px 46px 70px -34px light-dark(rgba(64, 52, 34, .22), rgba(0, 0, 0, .55));
+  --pop-bg: linear-gradient(215deg, light-dark(#ffffff, #2c2a27), light-dark(#fcfbf8, #272522)); --pop-blur: none;
+  --pop-shadow: var(--paper-edge), -2px 3px 4px light-dark(rgba(64, 52, 34, .08), rgba(0, 0, 0, .35)), -18px 30px 56px -20px light-dark(rgba(64, 52, 34, .34), rgba(0, 0, 0, .72));
+  --btn-radius: 8px; --btn-edge: transparent; --btn-text: var(--text);
+  --btn-bg: linear-gradient(215deg, light-dark(#ffffff, #33302c), light-dark(#faf8f4, #2c2a26)); --btn-bg-hover: linear-gradient(215deg, light-dark(#ffffff, #3a3733), light-dark(#fdfcf9, #322f2b));
+  --btn-shadow: var(--paper-edge), -1px 2px 3px -1px light-dark(rgba(64, 52, 34, .2), rgba(0, 0, 0, .5)), -4px 6px 10px -6px light-dark(rgba(64, 52, 34, .22), rgba(0, 0, 0, .5));
+  --btn-shadow-active: inset -1px 1px 3px light-dark(rgba(64, 52, 34, .16), rgba(0, 0, 0, .45)), 0 0 0 .5px light-dark(rgba(64, 52, 34, .14), rgba(0, 0, 0, .5));
+  --pri-bg: linear-gradient(180deg, light-dark(#2c2b27, #fffdf8), light-dark(#141311, #e9e3d7)); --pri-bg-hover: linear-gradient(180deg, light-dark(#3a3834, #ffffff), light-dark(#000000, #f1ece2)); --pri-edge: transparent; --pri-text: light-dark(#fffdf8, #161512);
+  --pri-shadow: inset 0 1px 0 light-dark(rgba(255, 255, 255, .14), #ffffff), 0 0 0 .5px light-dark(#000000, rgba(0, 0, 0, .4)), -2px 4px 8px -3px light-dark(rgba(20, 18, 14, .5), rgba(0, 0, 0, .6));
+  --pri-shadow-active: inset -1px 2px 4px light-dark(rgba(0, 0, 0, .65), rgba(64, 52, 34, .35));
+  --field-bg: light-dark(#fffefb, #201e1b); --field-edge: light-dark(#dcd6cb, #403c36); --field-radius: 8px; --field-shadow: inset -1px 1px 2px light-dark(rgba(64, 52, 34, .07), rgba(0, 0, 0, .4));
+  --field-focus: 0 0 0 3px light-dark(rgba(187, 154, 95, .24), rgba(214, 181, 124, .22)); --field-focus-edge: var(--gold);
+  --track-bg: light-dark(#e8e4dc, #1c1b18); --track-shadow: inset -1px 1px 3px light-dark(rgba(64, 52, 34, .2), rgba(0, 0, 0, .6));
+  --track-on-bg: var(--pri-bg); --track-on-shadow: inset -1px 1px 3px light-dark(rgba(0, 0, 0, .45), rgba(64, 52, 34, .3));
+  --knob-bg: radial-gradient(circle at 64% 30%, #ffffff 0, #f8f6f1 45%, #e6e1d7 100%);
+  --knob-on-bg: radial-gradient(circle at 64% 30%, light-dark(#ffffff, #57534c) 0, light-dark(#f8f6f1, #2c2a26) 45%, light-dark(#e6e1d7, #161512) 100%);
+  --knob-shadow: -1px 2px 3px rgba(40, 32, 20, .32), inset -1px 1px 0 rgba(255, 255, 255, .35);
+  --check-radius: 4px; --check-bg: light-dark(#fffefb, #201e1b); --check-edge: light-dark(#cfc8bb, #4c4740); --check-shadow: inset -1px 1px 2px light-dark(rgba(64, 52, 34, .08), rgba(0, 0, 0, .4));
+  --check-on-bg: var(--pri-bg); --check-on-edge: transparent; --check-on-shadow: -1px 2px 4px -1px light-dark(rgba(20, 18, 14, .45), rgba(0, 0, 0, .6)); --check-mark: light-dark(#fffdf8, #161512);
+  --seg-bg: light-dark(#efece6, #1c1b18); --seg-radius: 10px; --seg-shadow: inset -1px 1px 3px light-dark(rgba(64, 52, 34, .13), rgba(0, 0, 0, .5));
+  --seg-on-bg: var(--btn-bg); --seg-on-text: var(--text); --seg-on-shadow: var(--paper-edge), -1px 2px 4px -1px light-dark(rgba(64, 52, 34, .24), rgba(0, 0, 0, .55));
+  --chip-on-bg: var(--pri-bg); --chip-on-text: var(--pri-text); --chip-on-shadow: var(--pri-shadow);
+  --tile-radius: 50%; --tile-shadow: inset -1px 1px 0 light-dark(rgba(255, 255, 255, .95), rgba(255, 246, 228, .1)), inset 1px -1px 3px light-dark(rgba(140, 124, 96, .16), rgba(0, 0, 0, .35)), 0 0 0 .5px light-dark(rgba(64, 52, 34, .14), rgba(0, 0, 0, .5)), -2px 3px 5px -2px light-dark(rgba(64, 52, 34, .34), rgba(0, 0, 0, .6));
+  --ring: 0 0 0 3px light-dark(rgba(148, 114, 58, .3), rgba(214, 181, 124, .35)); --sel-ring: var(--focus);
+  --porcelain: radial-gradient(circle at 64% 30%, light-dark(#ffffff, #48443e) 0, light-dark(#fcfbf8, #36332e) 40%, light-dark(#f0ece4, #2a2824) 72%, light-dark(#e2dcd0, #201e1b) 100%);
+  --fluted: repeating-linear-gradient(90deg, light-dark(#ffffff, #3b3833) 0 2px, light-dark(#f1eee8, #302d29) 2px 3px, light-dark(#e2ddd3, #25231f) 3px 4px);
+  --lacquer: radial-gradient(circle at 66% 28%, #6a665e 0, #2a2823 34%, #0f0e0c 70%);
+  --sheet-1: light-dark(#f5f2ec, #211f1c); --sheet-2: light-dark(#ece8e0, #1b1a17); --sheet-edge: light-dark(rgba(64, 52, 34, .2), rgba(0, 0, 0, .7));
+}
+
+/* 液态玻璃（原图 9，去掉墙面和窗影后）：无色磨砂玻璃，左上亮边、底边一道焦散光并漏到下方，影子向右下错开落在底面上；强调不用颜色，用更亮的玻璃和外圈光晕。键名沿用 smoked-glass，后台白名单不用改。 */
+:root[data-skin="smoked-glass"] {
+  --bg: light-dark(#c4c6ca, #131417); --bg-soft: light-dark(rgba(255, 255, 255, .3), rgba(255, 255, 255, .045)); --surface: light-dark(rgba(255, 255, 255, .46), rgba(255, 255, 255, .075)); --surface-2: light-dark(rgba(255, 255, 255, .3), rgba(255, 255, 255, .05)); --surface-elevated: light-dark(rgba(246, 247, 249, .92), rgba(44, 46, 51, .94));
+  --text: light-dark(#141416, #f5f5f7); --text-2: light-dark(#2b2b2f, #dcdce1); --muted: light-dark(#44454b, #aaabb2); --faint: light-dark(#53545a, #95969d);
+  --line: light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .13)); --line-soft: light-dark(rgba(255, 255, 255, .45), rgba(255, 255, 255, .09)); --line-strong: light-dark(rgba(52, 54, 62, .38), rgba(255, 255, 255, .3)); --control-border: light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .24));
+  --accent: light-dark(#141416, #ffffff); --accent-hover: light-dark(#000000, #ffffff); --on-accent: light-dark(#ffffff, #141416); --accent-soft: light-dark(rgba(255, 255, 255, .58), rgba(255, 255, 255, .13)); --accent-line: light-dark(rgba(255, 255, 255, .85), rgba(255, 255, 255, .32));
+  --hover: light-dark(rgba(255, 255, 255, .4), rgba(255, 255, 255, .08)); --hover-soft: light-dark(rgba(255, 255, 255, .3), rgba(255, 255, 255, .06)); --selected-bg: var(--accent-soft); --selected-text: var(--text);
+  --focus: light-dark(#141416, #ffffff); --ok: light-dark(#24603f, #8fe0b4); --star: light-dark(#141416, #ffffff); --mark: light-dark(rgba(255, 222, 130, .85), rgba(255, 222, 130, .34));
+  --radius-card: 18px; --radius-ctrl: 12px; --radius-pop: 24px;
+  --font-display: -apple-system, "SF Pro Display", BlinkMacSystemFont, "PingFang SC", sans-serif; --heading-weight: 600; --heading-tracking: 0; --label-tracking: 0;
+  --ease-pop: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --page-bg: radial-gradient(70vw 80vh at -6% -10%, light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .07)), transparent 68%), radial-gradient(60vw 70vh at 106% 108%, light-dark(rgba(60, 64, 74, .26), rgba(0, 0, 0, .5)), transparent 70%), linear-gradient(135deg, light-dark(#ccced2, #1a1b1e), light-dark(#b6b9bf, #0e0f11));
+  /* 玻璃的四个部件：边缘高光、底边焦散、漏到下方的光、向右下错开的投影。 */
+  --glass-rim: inset 1px 1px 0 light-dark(rgba(255, 255, 255, .98), rgba(255, 255, 255, .55)), inset -1px 0 0 light-dark(rgba(255, 255, 255, .28), rgba(255, 255, 255, .1)), inset 0 -1px 0 light-dark(rgba(255, 255, 255, .72), rgba(255, 255, 255, .3)), inset 3px 4px 9px -5px light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .1));
+  --glass-caustic: radial-gradient(52% 3px at 50% 100%, #ffffff, light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .7)) 45%, transparent), radial-gradient(60% 11px at 50% 100%, light-dark(rgba(255, 255, 255, .78), rgba(255, 255, 255, .34)), transparent), radial-gradient(70% 42% at 50% 104%, light-dark(rgba(255, 255, 255, .45), rgba(255, 255, 255, .13)), transparent 72%), radial-gradient(26px 18px at 0 0, light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .16)), transparent 70%);
+  --glass-spill: 0 14px 14px -12px light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .34));
+  --glass-cast: 12px 14px 14px -7px light-dark(rgba(24, 26, 34, .25), rgba(0, 0, 0, .62)), 22px 26px 36px -18px light-dark(rgba(24, 26, 34, .2), rgba(0, 0, 0, .5));
+  --glass-fill: linear-gradient(165deg, light-dark(rgba(255, 255, 255, .52), rgba(255, 255, 255, .1)) 0%, light-dark(rgba(255, 255, 255, .34), rgba(255, 255, 255, .055)) 58%, light-dark(rgba(255, 255, 255, .42), rgba(255, 255, 255, .075)) 100%);
+  --lit-fill: linear-gradient(165deg, light-dark(rgba(255, 255, 255, .88), rgba(255, 255, 255, .3)) 0%, light-dark(rgba(255, 255, 255, .66), rgba(255, 255, 255, .18)) 60%, light-dark(rgba(255, 255, 255, .78), rgba(255, 255, 255, .24)) 100%);
+  --on-glass: radial-gradient(54% 3px at 50% 100%, light-dark(rgba(255, 255, 255, .6), #ffffff), transparent), linear-gradient(165deg, light-dark(rgba(52, 53, 58, .92), rgba(255, 255, 255, .62)), light-dark(rgba(20, 20, 23, .95), rgba(255, 255, 255, .42)));
+  --lit-halo: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .42)), 0 0 0 1px light-dark(rgba(255, 255, 255, .55), rgba(255, 255, 255, .16)), 0 0 22px light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .2));
+  --shell-gap: 20px; --nav-radius: 24px; --nav-edge: light-dark(rgba(255, 255, 255, .65), rgba(255, 255, 255, .2)); --nav-blur: none;
+  --nav-bg: radial-gradient(46% 8px at 50% 100%, light-dark(#ffffff, rgba(255, 255, 255, .72)), transparent), radial-gradient(70% 16% at 50% 104%, light-dark(rgba(255, 255, 255, .45), rgba(255, 255, 255, .11)), transparent 72%), var(--glass-fill);
+  --nav-shadow: var(--glass-rim), 16px 20px 30px -14px light-dark(rgba(24, 26, 34, .3), rgba(0, 0, 0, .65)), 32px 42px 64px -32px light-dark(rgba(24, 26, 34, .22), rgba(0, 0, 0, .5));
+  --nav-on-bg: radial-gradient(54% 4px at 50% 100%, #ffffff, transparent), var(--lit-fill); --nav-on-text: var(--text); --nav-on-icon: var(--text);
+  --nav-on-shadow: inset 1px 1px 0 #ffffff, inset 0 0 0 1px light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .4)), 0 0 14px light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .18)), 5px 6px 9px -5px light-dark(rgba(24, 26, 34, .3), rgba(0, 0, 0, .55));
+  --main-bg: transparent; --main-radius: 0px; --main-shadow: 0 0 0 0 transparent;
+  --card-bg: var(--glass-caustic), var(--glass-fill); --card-edge: light-dark(rgba(255, 255, 255, .5), rgba(255, 255, 255, .17));
+  --card-shadow: var(--glass-rim), var(--glass-spill), var(--glass-cast);
+  --card-shadow-hover: inset 1px 1px 0 #ffffff, inset -1px -1px 0 light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .24)), inset 3px 4px 9px -5px light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .14)), 0 12px 14px -10px light-dark(#ffffff, rgba(255, 255, 255, .36)), 14px 17px 20px -8px light-dark(rgba(24, 26, 34, .26), rgba(0, 0, 0, .62)), 26px 32px 44px -20px light-dark(rgba(24, 26, 34, .22), rgba(0, 0, 0, .5));
+  --pop-bg: radial-gradient(50% 8px at 50% 100%, light-dark(#ffffff, rgba(255, 255, 255, .5)), transparent), linear-gradient(165deg, light-dark(rgba(247, 248, 250, .8), rgba(58, 60, 66, .74)), light-dark(rgba(232, 234, 238, .74), rgba(34, 36, 40, .78)));
+  --pop-blur: blur(26px) saturate(1.6);
+  --pop-shadow: var(--glass-rim), 0 0 0 .5px light-dark(rgba(0, 0, 0, .06), rgba(0, 0, 0, .45)), 20px 26px 40px -16px light-dark(rgba(24, 26, 34, .34), rgba(0, 0, 0, .7)), 40px 56px 90px -40px light-dark(rgba(24, 26, 34, .26), rgba(0, 0, 0, .6));
+  --btn-radius: 12px; --btn-edge: light-dark(rgba(255, 255, 255, .66), rgba(255, 255, 255, .2)); --btn-text: var(--text);
+  --btn-bg: radial-gradient(50% 4px at 50% 100%, light-dark(#ffffff, rgba(255, 255, 255, .75)), transparent), radial-gradient(64% 52% at 50% 106%, light-dark(rgba(255, 255, 255, .42), rgba(255, 255, 255, .12)), transparent 72%), var(--glass-fill);
+  --btn-bg-hover: radial-gradient(52% 4px at 50% 100%, #ffffff, transparent), radial-gradient(66% 60% at 50% 106%, light-dark(rgba(255, 255, 255, .55), rgba(255, 255, 255, .18)), transparent 72%), linear-gradient(165deg, light-dark(rgba(255, 255, 255, .64), rgba(255, 255, 255, .15)), light-dark(rgba(255, 255, 255, .46), rgba(255, 255, 255, .09)));
+  --btn-shadow: inset 1px 1px 0 light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .45)), inset -1px -1px 0 light-dark(rgba(255, 255, 255, .4), rgba(255, 255, 255, .14)), 0 7px 8px -7px light-dark(#ffffff, rgba(255, 255, 255, .32)), 6px 7px 9px -4px light-dark(rgba(24, 26, 34, .25), rgba(0, 0, 0, .58));
+  --btn-shadow-active: inset 1px 2px 4px light-dark(rgba(24, 26, 34, .18), rgba(0, 0, 0, .5)), inset 0 0 0 1px light-dark(rgba(255, 255, 255, .5), rgba(255, 255, 255, .14)), 2px 3px 4px -2px light-dark(rgba(24, 26, 34, .24), rgba(0, 0, 0, .5));
+  --pri-bg: radial-gradient(54% 4px at 50% 100%, #ffffff, transparent), var(--lit-fill); --pri-bg-hover: radial-gradient(58% 5px at 50% 100%, #ffffff, transparent), linear-gradient(165deg, light-dark(#ffffff, rgba(255, 255, 255, .36)), light-dark(rgba(255, 255, 255, .86), rgba(255, 255, 255, .24)));
+  --pri-edge: light-dark(rgba(255, 255, 255, .95), rgba(255, 255, 255, .45)); --pri-text: var(--text);
+  --pri-shadow: inset 1px 1px 0 #ffffff, 0 0 16px light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .18)), 0 7px 8px -7px light-dark(#ffffff, rgba(255, 255, 255, .4)), 6px 7px 9px -4px light-dark(rgba(24, 26, 34, .28), rgba(0, 0, 0, .6));
+  --pri-shadow-active: inset 1px 2px 4px light-dark(rgba(24, 26, 34, .2), rgba(0, 0, 0, .45)), 0 0 10px light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .14));
+  --field-bg: light-dark(rgba(255, 255, 255, .32), rgba(255, 255, 255, .055)); --field-edge: light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .2)); --field-radius: 12px;
+  --field-shadow: inset 1px 2px 3px light-dark(rgba(24, 26, 34, .1), rgba(0, 0, 0, .35)), inset 0 -1px 0 light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .22)), 0 6px 8px -7px light-dark(#ffffff, rgba(255, 255, 255, .25));
+  --field-focus: 0 0 0 1.5px light-dark(rgba(20, 20, 22, .6), rgba(255, 255, 255, .85)), 0 0 0 4.5px light-dark(rgba(255, 255, 255, .75), rgba(255, 255, 255, .16)), 0 0 20px light-dark(rgba(255, 255, 255, .6), rgba(255, 255, 255, .14)); --field-focus-edge: light-dark(#ffffff, rgba(255, 255, 255, .7));
+  --track-bg: light-dark(rgba(255, 255, 255, .26), rgba(255, 255, 255, .06));
+  --track-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .88), rgba(255, 255, 255, .32)), inset 1px 2px 3px light-dark(rgba(24, 26, 34, .14), rgba(0, 0, 0, .4)), 4px 5px 6px -3px light-dark(rgba(24, 26, 34, .24), rgba(0, 0, 0, .5));
+  --track-on-bg: var(--on-glass); --track-on-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .35), #ffffff), inset 1px 1px 0 light-dark(rgba(255, 255, 255, .3), #ffffff), 0 0 12px light-dark(rgba(255, 255, 255, .45), rgba(255, 255, 255, .26)), 4px 5px 6px -3px light-dark(rgba(24, 26, 34, .3), rgba(0, 0, 0, .5));
+  --knob-bg: radial-gradient(circle at 38% 32%, #ffffff 0, #f7f7f9 48%, #dcdde2 100%); --knob-on-bg: var(--knob-bg);
+  --knob-shadow: 0 0 0 .5px rgba(20, 22, 30, .14), inset 1px 1px 0 #ffffff, 3px 4px 5px -1px light-dark(rgba(24, 26, 34, .36), rgba(0, 0, 0, .6));
+  --check-radius: 6px; --check-bg: light-dark(rgba(255, 255, 255, .3), rgba(255, 255, 255, .07)); --check-edge: light-dark(rgba(255, 255, 255, .9), rgba(255, 255, 255, .38));
+  --check-shadow: inset 1px 1px 0 light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .2)), 2px 3px 4px -2px light-dark(rgba(24, 26, 34, .3), rgba(0, 0, 0, .55));
+  --check-on-bg: var(--on-glass); --check-on-edge: light-dark(rgba(255, 255, 255, .45), #ffffff); --check-on-shadow: 0 0 10px light-dark(rgba(255, 255, 255, .5), rgba(255, 255, 255, .3)), 2px 3px 4px -2px light-dark(rgba(24, 26, 34, .3), rgba(0, 0, 0, .55)); --check-mark: light-dark(#ffffff, #141416);
+  --seg-bg: linear-gradient(170deg, light-dark(rgba(255, 255, 255, .36), rgba(255, 255, 255, .07)), light-dark(rgba(255, 255, 255, .22), rgba(255, 255, 255, .04))); --seg-radius: 13px;
+  --seg-shadow: inset 0 0 0 1px light-dark(rgba(255, 255, 255, .72), rgba(255, 255, 255, .18)), inset 1px 1px 0 light-dark(rgba(255, 255, 255, .55), rgba(255, 255, 255, .14)), 6px 7px 10px -5px light-dark(rgba(24, 26, 34, .22), rgba(0, 0, 0, .5));
+  --seg-on-bg: radial-gradient(54% 3px at 50% 100%, #ffffff, transparent), var(--lit-fill); --seg-on-text: var(--text);
+  --seg-on-shadow: inset 0 0 0 1px light-dark(#ffffff, rgba(255, 255, 255, .45)), 0 0 12px light-dark(rgba(255, 255, 255, .75), rgba(255, 255, 255, .2)), 3px 4px 6px -3px light-dark(rgba(24, 26, 34, .28), rgba(0, 0, 0, .55));
+  --chip-on-bg: var(--seg-on-bg); --chip-on-text: var(--text); --chip-on-shadow: var(--seg-on-shadow);
+  --tile-radius: 26%; --tile-shadow: inset 1px 1px 0 light-dark(#ffffff, rgba(255, 255, 255, .5)), inset 0 0 0 1px light-dark(rgba(255, 255, 255, .55), rgba(255, 255, 255, .16)), 3px 4px 5px -2px light-dark(rgba(24, 26, 34, .3), rgba(0, 0, 0, .55));
+  --ring: 0 0 0 2px var(--focus), 0 0 0 4.5px light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .2)); --sel-ring: var(--focus);
+  --glass-key: radial-gradient(60% 3px at 50% 100%, light-dark(#ffffff, rgba(255, 255, 255, .7)), transparent), linear-gradient(160deg, light-dark(rgba(255, 255, 255, .7), rgba(255, 255, 255, .2)), light-dark(rgba(255, 255, 255, .46), rgba(255, 255, 255, .09)));
+}
+
+/* 液态玻璃的主按钮用和开关「开」态同一种墨色 / 亮玻璃，和普通玻璃按钮拉开层级。 */
+:root[data-skin="smoked-glass"] {
+  --pri-bg: var(--on-glass);
+  --pri-bg-hover: radial-gradient(54% 3px at 50% 100%, light-dark(rgba(255, 255, 255, .7), #ffffff), transparent), linear-gradient(165deg, light-dark(rgba(70, 71, 77, .92), rgba(255, 255, 255, .74)), light-dark(rgba(34, 34, 38, .95), rgba(255, 255, 255, .54)));
+  --pri-text: light-dark(#ffffff, #18191c);
+  --pri-edge: light-dark(rgba(20, 20, 23, .85), rgba(255, 255, 255, .7));
+}
+
+/* 切换外观和明暗时整页交叉淡入，避免亮度骤变。 */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 200ms; animation-timing-function: ease; }
+
+/* 窄屏是抽屉式导航，外壳不内缩、不留圆角。 */
+@media (max-width: 899px) {
+  :root[data-skin] { --shell-gap: 0px; --nav-radius: 0px; --main-radius: 0px; }
+}
+
+/* ───── 通用组件读取材质变量 ───── */
+body { background: var(--page-bg); background-attachment: fixed; }
+:focus-visible { outline-color: var(--focus); }
+.btn { border-color: var(--btn-edge); border-radius: var(--btn-radius); background: var(--btn-bg); color: var(--btn-text); box-shadow: var(--btn-shadow); }
+.btn:hover { background: var(--btn-bg-hover); color: var(--btn-text); }
+.btn:active:not(:disabled) { box-shadow: var(--btn-shadow-active); }
+.btn.pri { border-color: var(--pri-edge); background: var(--pri-bg); color: var(--pri-text); box-shadow: var(--pri-shadow); }
+.btn.pri:hover { border-color: var(--pri-edge); background: var(--pri-bg-hover); color: var(--pri-text); }
+.btn.pri:active:not(:disabled) { box-shadow: var(--pri-shadow-active); }
+.btn.ghost { border-color: transparent; background: transparent; box-shadow: none; }
+.btn.ghost:hover { background: var(--hover); }
+.btn.danger, .btn.danger:hover { color: var(--danger); }
+.btn.danger:hover { background: var(--danger-soft); }
+.btn.danger-fill, .btn.danger-fill:hover { border-color: var(--danger); background: var(--danger); color: var(--on-danger); box-shadow: none; }
+.btn.outline { border-color: var(--accent); color: var(--accent); }
+:root:not([data-skin="emboss"]) .btn.sm, :root:not([data-skin="emboss"]) .btn.lg { border-radius: var(--btn-radius); }
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-motion="on"][data-skin="neo-apple"] .btn:active:not(:disabled) { transform: scale(.97); }
+  :root[data-motion="on"][data-skin="liquid"] .btn:active:not(:disabled) { transform: translateY(2px); }
+  :root[data-motion="on"][data-skin="smoked-glass"] .btn:active:not(:disabled) { transform: scale(.97); }
+  :root[data-motion="on"][data-skin="cream-paper"] .btn:active:not(:disabled) { transform: translate(-1px, 1px); }
+}
+.input, .select, .textarea, .search-box { border-color: var(--field-edge); border-radius: var(--field-radius); background-color: var(--field-bg); box-shadow: var(--field-shadow); }
+.textarea { border-radius: min(var(--field-radius), 16px); }
+.input:focus, .select:focus, .textarea:focus, .search-box:focus-within { border-color: var(--field-focus-edge); box-shadow: var(--field-shadow), var(--field-focus); }
+.switch { background: var(--track-bg); box-shadow: var(--track-shadow); }
+.switch::after { background: var(--knob-bg); box-shadow: var(--knob-shadow); }
+.switch[aria-checked="true"] { background: var(--track-on-bg); box-shadow: var(--track-on-shadow); }
+.switch[aria-checked="true"]::after { background: var(--knob-on-bg); }
+.chip { border-color: var(--btn-edge); background: var(--btn-bg); color: var(--btn-text); box-shadow: var(--btn-shadow); }
+.chip:hover { background: var(--btn-bg-hover); }
+.chip[aria-checked="true"], .chip[aria-pressed="true"], .chip.on { border-color: transparent; background: var(--chip-on-bg); color: var(--chip-on-text); box-shadow: var(--chip-on-shadow); }
+.chip.dashed { border-color: var(--line-strong); background: transparent; box-shadow: none; }
+.card { border-color: var(--card-edge); border-radius: var(--radius-card); background: var(--card-bg); box-shadow: var(--card-shadow); }
+/* 分段控件：完整页、侧边栏和弹窗共用。 */
+.seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: var(--seg-radius); background: var(--seg-bg); box-shadow: var(--seg-shadow); }
+.seg button { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 10px; border: 0; border-radius: calc(var(--seg-radius) - 2px); background: transparent; color: var(--text-2); font-size: 13px; cursor: pointer; }
+.seg button[aria-pressed="true"], .seg button[aria-checked="true"] { background: var(--seg-on-bg); color: var(--seg-on-text); font-weight: 600; box-shadow: var(--seg-on-shadow); }
+.modal, .menu { border-radius: var(--radius-pop); background: var(--pop-bg); box-shadow: var(--pop-shadow); -webkit-backdrop-filter: var(--pop-blur); backdrop-filter: var(--pop-blur); }
+.tile { border-radius: var(--tile-radius); box-shadow: var(--tile-shadow); }
+
+/* 非默认材质用自绘勾选框、单选和滑块，原生控件画不出凝胶、厚度和发光。 */
+:root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"]) {
+  appearance: none; -webkit-appearance: none; display: inline-grid; place-content: center; width: 18px; height: 18px; margin: 0; flex: none; cursor: pointer;
+  border: 1px solid var(--check-edge); border-radius: var(--check-radius); background: var(--check-bg); box-shadow: var(--check-shadow);
+  transition: box-shadow var(--dur-hover) ease, background-color var(--dur-hover) ease, border-color var(--dur-hover) ease;
+}
+:root:not([data-skin="emboss"]) input[type="radio"] { border-radius: 50%; }
+:root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"]):checked { border-color: var(--check-on-edge); background: var(--check-on-bg); box-shadow: var(--check-on-shadow); }
+:root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"])::after { content: ""; transform: scale(.6); opacity: 0; transition: transform var(--dur-pop) var(--ease-pop), opacity var(--dur-pop) ease; background: var(--check-mark); }
+:root:not([data-skin="emboss"]) input[type="checkbox"]::after {
+  width: 12px; height: 12px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+:root:not([data-skin="emboss"]) input[type="radio"]::after { width: 8px; height: 8px; border-radius: 50%; }
+:root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"]):checked::after { transform: scale(1); opacity: 1; }
+:root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"]):disabled { opacity: .5; cursor: not-allowed; }
+:root:not([data-skin="emboss"]) input[type="range"] { -webkit-appearance: none; appearance: none; height: 22px; background: transparent; cursor: pointer; }
+:root:not([data-skin="emboss"]) input[type="range"]::-webkit-slider-runnable-track { height: 8px; border-radius: 999px; background: var(--track-bg); box-shadow: var(--track-shadow); }
+:root:not([data-skin="emboss"]) input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -6px; border: 0; border-radius: 50%; background: var(--knob-on-bg); box-shadow: var(--knob-shadow); }
+:root:is([data-skin="mist-slate"], [data-skin="liquid"], [data-skin="dusk-widgets"], [data-skin="cardiology"]) :is(.btn, .icon-btn, .chip, .switch, input[type="checkbox"], input[type="radio"]):focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* 素笺与液态玻璃：完整页和小窗口共用的图标表面与底栏。网站图标保留原色。 */
+:root:is([data-skin="cream-paper"], [data-skin="smoked-glass"]) body { background: var(--page-bg); }
+:root[data-skin="cream-paper"] .tile:not(.has-fav) { background: var(--porcelain); color: var(--gold-ink); }
+:root[data-skin="smoked-glass"] .tile:not(.has-fav) { background: var(--glass-key); color: var(--text); }
+:root:is([data-skin="cream-paper"], [data-skin="smoked-glass"]) :is(.sp-head, .sp-foot, footer.foot, .qs-foot) { background: var(--nav-bg); }
+
+/* 轻动效与降级
+   data-motion="on"：完整动效。data-motion="reduced"：用户关掉「轻动效」或系统要求减少动态效果时由 theme-boot.js / applyAppearance() 写入。
+   reduced 只拿掉位移、缩放和循环动画；淡入淡出、颜色变化和加载提示保留。 */
+@media (hover:hover) and (pointer:fine) {
+  :root[data-motion="on"] :is(.bm-card, .shelf-item, .home-item):hover { transform:translateY(-2px); }
+}
+:root[data-motion="on"] [data-pressing="true"] { transform:scale(.97); }
+[data-motion="on"] [data-syncing="true"] .dot { animation:ui-breathe 1.8s ease-in-out infinite; }
+[data-ui-hidden="true"] [data-syncing="true"] .dot { animation-play-state:paused; }
+@keyframes ui-breathe { 50% { opacity:.5; } }
+.skeleton { display:inline-block; color:transparent !important; background:var(--surface-2); border-radius:var(--radius-ctrl); }
+:root[data-motion="reduced"] *, :root[data-motion="reduced"] *::before, :root[data-motion="reduced"] *::after {
+  transition-property: opacity, color, background-color, border-color, box-shadow !important;
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+}
+:root[data-motion="reduced"] :is(.bm-card, .home-item, .shelf-item, .tile, [data-pressing]) { transform:none !important; }
+:root[data-motion="reduced"] .spinner { border-right-color: currentColor; animation: spinner-pulse 1.2s ease-in-out infinite !important; }
+@keyframes spinner-pulse { 50% { opacity:.35; } }
+@media (hover:none), (pointer:coarse) {
+  .btn, .icon-btn, .nav-group-toggle, .nav-item, .nav-group-link, .nav-sub { min-height:44px; }
+  .icon-btn, .nav-group-toggle { min-width:44px; }
+  .nav-sub { padding-right:54px; }
+  .nav-sub .sub-more { width:44px; height:44px; opacity:1; pointer-events:auto; }
+}
+@media (forced-colors:active) {
+  .card, .bm-card, .home-item, .btn, .input, .select, .nav-item[aria-current], .nav-group-head.is-active { border:1px solid CanvasText; box-shadow:none; }
+  :root[data-skin] :focus-visible { outline:2px solid Highlight !important; }
+  :root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"]) { appearance: auto; -webkit-appearance: auto; background: revert; border: revert; box-shadow: none; }
+  :root:not([data-skin="emboss"]) :is(input[type="checkbox"], input[type="radio"])::after { display: none; }
+  /* 这些控件只用底色区分状态，高对比度下会被系统色吞掉，改成描边表示选中。 */
+  .switch[aria-checked="true"], .seg button[aria-pressed="true"], .seg button[aria-checked="true"], .chip[aria-pressed="true"], .chip[aria-selected="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .switch[aria-checked="true"]::after { background: Highlight !important; border-color: Highlight !important; }
+  input[type="range"] { accent-color: Highlight; }
+}
+
+/* 系统「降低透明度」：玻璃与雾灰外观的侧栏和浮层改成不透明，去掉背景模糊。 */
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-skin] { --nav-blur: none; --pop-blur: none; }
+  :root:is([data-skin="neo-apple"], [data-skin="mist-slate"], [data-skin="smoked-glass"]) { --nav-bg: var(--bg-soft); --pop-bg: var(--surface-elevated, var(--surface)); }
+}
+/* 系统「增强对比度」：卡片和输入框用实线描边。 */
+@media (prefers-contrast: more) {
+  :root[data-skin] { --card-edge: var(--line-strong); --field-edge: var(--line-strong); --nav-edge: var(--line-strong); }
+}

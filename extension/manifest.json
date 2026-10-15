@@ -1,0 +1,95 @@
+{
+  "manifest_version": 3,
+  "name": "谜盒",
+  "version": "3.0.0",
+  "description": "你的私有书签系统。收藏、笔记和保险箱放在一处，用你自己的 Google Drive 应用私有空间同步。",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwFVifXIl7JYOgwgnjRj4VQ3tNUzfrJrw632VE+OZpn9p4QjPny7Ew5bi2oS5/UXUs6Ppkt9/8RaHTzbG0yImMEmDGjNJX+wZMOkXYk3EJdrm5HTyPx/OQt/JNlZEaytpJf3Bfl3IGFeIj5OfdWtjywTAxAw/hVIZMHJuV8TgCCimfYyYyd/LrjqNzjcqfEs3iygrr7n5VUDnK6H0pcjXhYzUej6mgTOFLb0cgSsuvHiDd4PhDZjOeEXdCnGY9mGfb+T+PLwpfDWmZ/8N1H+W5fuWjRtlv7tmEtO5fGrGR/4sCDovylILi7qiQKvwSJjuVKWuCmbNY7N4r+tPRuGuYQIDAQAB",
+  "minimum_chrome_version": "123",
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "action": {
+    "default_title": "收藏当前网页（Alt+Shift+S）",
+    "default_popup": "src/ui/popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "src/ui/sidepanel/sidepanel.html"
+  },
+  "options_page": "src/ui/app/options.html",
+  "optional_permissions": ["history"],
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "scripting",
+    "bookmarks",
+    "activeTab",
+    "contextMenus",
+    "sidePanel",
+    "favicon",
+    "identity",
+    "alarms",
+    "offscreen",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*",
+    "https://oauth2.googleapis.com/*"
+  ],
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "收藏当前网页"
+    },
+    "quick-search": {
+      "suggested_key": {
+        "default": "Alt+Shift+K"
+      },
+      "description": "在任何网页搜索收藏、笔记和保险箱"
+    },
+    "open-sidepanel": {
+      "suggested_key": {
+        "default": "Alt+Shift+B"
+      },
+      "description": "打开侧栏"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/ui/search/*"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ],
+  "oauth2": {
+    "client_id": "991123504687-tsvkf34dq2pjqojo034md9vnua36hk8k.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.appdata",
+      "openid",
+      "email"
+    ]
+  }
+}
