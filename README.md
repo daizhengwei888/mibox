@@ -1,6 +1,6 @@
 # 谜盒 Mibox
 
-**你的私有书签系统。** 收藏、笔记、保险箱和签到助手放在一个 Chrome 插件里，资料只存在你的电脑和你自己的 Google Drive 应用私有空间，没有服务器、没有统计。
+**作者：David** · **你的私有书签系统。** 收藏、笔记、保险箱和签到助手放在一个 Chrome 插件里，资料只存在你的电脑和你自己的 Google Drive 应用私有空间，没有服务器、没有统计。
 
 ![谜盒的收藏页](docs/images/bookmarks.png)
 
@@ -106,6 +106,6 @@ sh scripts/pack.sh             # 打包 dist/mibox-<版本号>.zip
 
 ## 许可证
 
-[MIT](LICENSE) © 2026 谜盒作者
+[MIT](LICENSE) © 2026 David
 
 界面图标参照 [Feather Icons](https://github.com/feathericons/feather)（MIT）；BLAKE3 实现取自 [@noble/hashes](https://github.com/paulmillr/noble-hashes)（MIT）。见 [THIRD-PARTY-NOTICES.txt](extension/THIRD-PARTY-NOTICES.txt)。
